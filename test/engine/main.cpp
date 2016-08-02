@@ -9,7 +9,8 @@
 
 typedef enum class 	e_Entity // (une entité est tout ce qui existe dans le logiciel genre la video, le son, les personnages, ma bite etc...) ////
 {
-  OTHER,
+  ALL,
+    OTHER,
     SON,
     PNJ,
     NOTHING,
@@ -24,7 +25,7 @@ class	component /* interface entité */
 public : 
   virtual ~component() = default;
   virtual void update() = 0;
-  /*  virtual*/ t_Entity getTypeEntity() { /* A voir si on peut utilisé autre chose qu'une virtual IMPORTANT ! (CHAZE) */
+  /*  virtual*/ t_Entity getTypeEntity() {
     return _type;
   };
   void	setTypeEntity(t_Entity type) {
@@ -69,21 +70,34 @@ public :
   //    std::cout << static_cast<int>(_type) << std::endl;
   //    return _type;
   //  };
+  void	RACPOWA()
+  {
+    std::cout << "FONCTION DU RAC TAVUH" << std::endl;
+  }
+  void InitValueSpecificRac(int value)
+  {
+    this->value_RAC = value;
+  }
+  int	value_RAC;
 };
 
 /* CLASS DE TEST POUR LE MOMENT DUCOUP ELLE EST NUL */
-class	ComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires */
+class	ComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires Faire un singleton*/
   {
 public :
-  void	fillVectorComponent(component* cpnmt)
+    void	fillVectorComponent(component* cpnmt) /* pour faire un fector de composant */
   {
     this->_vComponent.push_back(cpnmt);
     std::cout << this->_vComponent.size() << std::endl;
   }
-    void	updateSpecificComponent(t_Entity type)
+    void	updateSpecificComponent(t_Entity type) /* Pour pouvoir update les entité voulu */
     {
       std::for_each(_vComponent.begin(), _vComponent.end(), [type](component *elem){  /* LAMBDA */
-	  if (elem->getTypeEntity() == type) {
+	  if (type == t_Entity::ALL)
+	    {
+	      std::cout << "Loop sur tout les entity" << std::endl;
+	    }
+	  else if (elem->getTypeEntity() == type) {
 	    std::cout << static_cast<int>(elem->getTypeEntity()) << std::endl;
 	  }
 	});
@@ -112,6 +126,7 @@ http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namesp
     {
       ComponentRAC *entite = new ComponentRAC;
       entite->setTypeEntity(t_Entity::RAC);
+      entite->InitValueSpecificRac(42);
       std::cout << "New component RAC : " << std::endl;
       /* GO INIT */
       return (entite);
@@ -169,6 +184,18 @@ private :
 
 factoryComponent *factoryComponent::IsInstanciate = nullptr;
 
+void	myfunction(component *compo) /* Fonction qui verifie juste si le type stocker dans la class component fonctionne */
+{
+  if (compo->getTypeEntity() == t_Entity::RAC) { /* Surement a stocker dans une map */
+    ComponentRAC  *Realjs = static_cast<ComponentRAC*>(compo);
+    Realjs->RACPOWA();
+    std::cout << Realjs->value_RAC << std::endl;
+  }
+  else {
+    std::cout << "Faire d'autre if" << std::endl;
+  }
+}
+
 int	main()
 {
   std::vector<component*>	vComponent;
@@ -178,7 +205,12 @@ int	main()
   factoryComponent *fctComponent = factoryComponent::createFactory();
 
   /* Crée les composants et associe les entités */
-  auto thach = fctComponent->buildComponent<ComponentRAC>();
+  component* thach = fctComponent->buildComponent<ComponentRAC>();
+  std::cout << typeid(thach).name() << std::endl; // => Component
+  // OU //
+  auto* thach2 = fctComponent->buildComponent<ComponentRAC>();
+  std::cout << typeid(thach2).name() << std::endl; // => ComponentRAC
+
   thach->update();
   CpnmtMSystem.fillVectorComponent(thach);
   //  thach->run();
@@ -194,8 +226,24 @@ int	main()
 
   /* UPDATE */
   std::cout << std::endl;
-  CpnmtMSystem.updateSpecificComponent(t_Entity::SON);
+  CpnmtMSystem.updateSpecificComponent(t_Entity::SON); /* Update les sons */ /* Mettre chaque type de update dans un thread ???, */
   std::cout << std::endl;
-  CpnmtMSystem.updateSpecificComponent(t_Entity::RAC);
+  CpnmtMSystem.updateSpecificComponent(t_Entity::ALL); /* Update tout */
+
+
+
+
+
+
+
+  /* TEST ARBRE */
+
+  ComponentRAC* js = new ComponentRAC; // se fait dans la factory
+  js->setTypeEntity(t_Entity::RAC); // Se fait dans la factory
+  js->InitValueSpecificRac(42); // se fait dans la factory
+
+  // call de fonction prenant un components 
+  myfunction(soundBoss);
+  myfunction(js);
   return (0);
 }
