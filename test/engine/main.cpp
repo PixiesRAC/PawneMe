@@ -9,7 +9,8 @@
 
 typedef enum class 	e_Entity // (une entité est tout ce qui existe dans le logiciel genre la video, le son, les personnages, ma bite etc...) ////
 {
-  SON,
+  OTHER,
+    SON,
     PNJ,
     NOTHING,
     MENU,
@@ -23,9 +24,17 @@ class	component /* interface entité */
 public : 
   virtual ~component() = default;
   virtual void update() = 0;
+  /*  virtual*/ t_Entity getTypeEntity() { /* A voir si on peut utilisé autre chose qu'une virtual IMPORTANT ! (CHAZE) */
+    return _type;
+  };
+  void	setTypeEntity(t_Entity type) {
+    _type = type;
+  }
   /* va contenir des methodes pures pour les updates etc... 
    ou alors crée une interface system et une classe system pour chaque entité qui lui appelera les updates, comme ca si on boucle
 sur les components, on sera pas obligé de tout parcourir, mais parcours seulement les entitées voulus ! */
+protected : 
+  t_Entity _type;
 };
 
 
@@ -35,43 +44,31 @@ class	Son : public component /* LE SON*/
 {
 public : 
   virtual void update() {std::cout << "Update de SON" << std::endl;};
-  Son() : _type(t_Entity::SON) {
-  }
-  t_Entity _type;
+  //  virtual t_Entity getTypeEntity() {};
 };
 
 class	ComponentMonster : public component /* monstre pnj */
 {
 public :
   virtual void update() {std::cout << "Update de monster" << std::endl;};
-  ComponentMonster() : _type(t_Entity::PNJ) {
-}
-  t_Entity _type;
+  //  virtual t_Entity getTypeEntity() {};
 };
 
 class	ComponentHero : public component /* joueur */
 {
 public :
   virtual void update() {std::cout << "Update de HERO" << std::endl;};
-  ComponentHero() : _type(t_Entity::HERO) {};
-  t_Entity _type;
+  //  virtual t_Entity getTypeEntity() {};
 };
 
 class	ComponentRAC : public component /* pnj boss */
 {
 public :
   virtual void update() {std::cout << "Update de RAC" << std::endl;};
-  void	test() {};
-  ComponentRAC() : _type(t_Entity::RAC) {};
-  ~ComponentRAC() = default;
-  ComponentRAC(ComponentRAC&) = default;
-  ComponentRAC& operator=(const ComponentRAC&) = default;
-
-public :
-  void	run()  {
-    std::cout << "Je fait un run" << std::endl;
-  }
-  t_Entity _type;
+  //  virtual t_Entity getTypeEntity() {
+  //    std::cout << static_cast<int>(_type) << std::endl;
+  //    return _type;
+  //  };
 };
 
 /* CLASS DE TEST POUR LE MOMENT DUCOUP ELLE EST NUL */
@@ -85,19 +82,14 @@ public :
   }
     void	updateSpecificComponent(t_Entity type)
     {
-      //    std::for_each(_vComponent.begin(), _vComponent.end(), [type](component *elem){  /* LAMBDA */
-      //	int	i = 0;
-      //	if (elem->_type == type) {
-      //	std::cout << "Je m'occupe de toute les entitées specifié : " << static_cast<int>(elem->_type) << std::endl; /* Pour le update selecif */
-      //	++i;
-      //	std::cout << "Il y en a : " << i << std::endl;});
-      //	}
-      for (auto value : this->_vComponent){
-	//	std::cout << static_cast<int>(value->_type) << std::endl; /* Connaitre le type @@@@@@@@@@@@ @@@@@@@@@ @@@@@@@@ ! */
-      }
+      std::for_each(_vComponent.begin(), _vComponent.end(), [type](component *elem){  /* LAMBDA */
+	  if (elem->getTypeEntity() == type) {
+	    std::cout << static_cast<int>(elem->getTypeEntity()) << std::endl;
+	  }
+	});
     }
-private : 
-  std::vector<component*>	_vComponent; /* Liste de  composant */
+  private : 
+    std::vector<component*>	_vComponent; /* Liste de  composant */
 };
 
 
@@ -108,7 +100,8 @@ http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namesp
     template <typename T>
     T * const buildComponentNm()
     {
-      component	*entite = new T;
+      T	*entite = new T;
+      entite->setTypeEntity(t_Entity::OTHER);
       std::cout << "New component banale : " << std::endl;
       /* GO INIT */
       return (entite);
@@ -118,6 +111,7 @@ http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namesp
     ComponentRAC* const buildComponentNm<ComponentRAC>()
     {
       ComponentRAC *entite = new ComponentRAC;
+      entite->setTypeEntity(t_Entity::RAC);
       std::cout << "New component RAC : " << std::endl;
       /* GO INIT */
       return (entite);
@@ -127,6 +121,7 @@ http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namesp
     Son * const buildComponentNm<Son>()
     {
       Son *entite = new Son;
+      entite->setTypeEntity(t_Entity::SON);
       std::cout << "New component de SON : " << std::endl;
       /* GO INIT */
       return (entite);
@@ -183,21 +178,24 @@ int	main()
   factoryComponent *fctComponent = factoryComponent::createFactory();
 
   /* Crée les composants et associe les entités */
-  auto *thach = fctComponent->buildComponent<ComponentRAC>();
+  auto thach = fctComponent->buildComponent<ComponentRAC>();
   thach->update();
-  //  CpnmtMSystem.fillVectorComponent(thach);
+  CpnmtMSystem.fillVectorComponent(thach);
   //  thach->run();
-  //  auto sandy = fctComponent->buildComponent<ComponentHero>();
-  //  CpnmtMSystem.fillVectorComponent(sandy);
+  auto sandy = fctComponent->buildComponent<ComponentHero>();
+  CpnmtMSystem.fillVectorComponent(sandy);
   //  sandy->run();
-  //  auto soundMenu = fctComponent->buildComponent<Son>();
-  //  CpnmtMSystem.fillVectorComponent(soundMenu);
-  //  auto soundGame = fctComponent->buildComponent<Son>();
-  //  CpnmtMSystem.fillVectorComponent(soundGame);
-  //  auto soundBoss = fctComponent->buildComponent<Son>();
-  //  CpnmtMSystem.fillVectorComponent(soundBoss);
+  auto soundMenu = fctComponent->buildComponent<Son>();
+  CpnmtMSystem.fillVectorComponent(soundMenu);
+  auto soundGame = fctComponent->buildComponent<Son>();
+  CpnmtMSystem.fillVectorComponent(soundGame);
+  auto soundBoss = fctComponent->buildComponent<Son>();
+  CpnmtMSystem.fillVectorComponent(soundBoss);
 
   /* UPDATE */
+  std::cout << std::endl;
   CpnmtMSystem.updateSpecificComponent(t_Entity::SON);
+  std::cout << std::endl;
+  CpnmtMSystem.updateSpecificComponent(t_Entity::RAC);
   return (0);
 }
