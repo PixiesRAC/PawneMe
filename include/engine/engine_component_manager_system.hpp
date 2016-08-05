@@ -27,9 +27,12 @@ public :
   /**
    * \fn updateComponent methode permettant d'update un type ou 
    *	tout les components
-   *  \param type enum de l'entity voulant etre update
+   *  \param type enum de l'entity voulant etre update, Utile car
+   * on ne voudra pas toujours vouloir update tout les composants, mais
+   * par exemple juste le son ou juste un personnage en fonction de 
+   * l'evenement recus !
    */
-  void        updateComponent(t_Entity type);
+  void        updateComponent(t_Entity type = t_Entity::ALL);
   
 private :
   std::vector<engineComponent*>     _vComponent; /* Liste de  composant */

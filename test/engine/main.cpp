@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <typeinfo>
 
 /* PAS FINI, JE DOIS MODIFIER LA CLASS MERE POUR QUE CA WORK LARBRE DHERITAGE */
 /* BON COURAGE, J'AI TOUT FAIT DANS LE MAIN */

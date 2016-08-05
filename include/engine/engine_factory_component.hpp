@@ -1,13 +1,17 @@
 #ifndef ENGINE_FACTORY_COMPONENT_HPP_
 # define ENGINE_FACTORY_COMPONENT_HPP_
 
+#include <iostream> /* mettre les instruction dans un .cpp */
 #include "./engine_component.hpp"
+#include "../component/componentSound.hpp"
 
 /** 
  * \namespace nmBuildComponent
  * \brief namespace contenant les specialisation de templates pour chaque entity (Il y en aura beaucoup)
  * \author pixies
  */
+
+/* WARNING mettre tout les templates dans un .cpp ???? WARNING */
 
 namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et specialiser ses functions  ref => http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namespace-scope*/
 {
@@ -18,7 +22,7 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
    * \return return le component instancié
    */
   template <typename T>
-  T * const buildComponentNm()
+  T * buildComponentNm()
   {
     T *entite = new T;
     entite->setTypeEntity(t_Entity::OTHER);
@@ -27,21 +31,11 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     return (entite);
   }
 
+  /* specialisation de template pour le composant son */
   template <>
-  ComponentRAC* const buildComponentNm<ComponentRAC>()
+  componentSound *buildComponentNm<componentSound>()
   {
-    ComponentRAC *entite = new ComponentRAC;
-    entite->setTypeEntity(t_Entity::RAC);
-    entite->InitValueSpecificRac(42);
-    std::cout << "New component RAC : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
-
-  template <>
-  Son * const buildComponentNm<Son>()
-  {
-    Son *entite = new Son;
+    componentSound *entite = new componentSound;
     entite->setTypeEntity(t_Entity::SON);
     std::cout << "New component de SON : " << std::endl;
     /* GO INIT */
@@ -57,10 +51,10 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
 
 class   engineFactoryComponent
 {
-  factoryComponent() = default;
-  ~factoryComponent() = default;
-  factoryComponent(const factoryComponent &) = delete;
-  factoryComponent& operator=(const factoryComponent&) = delete;
+  engineFactoryComponent() = default;
+  ~engineFactoryComponent() = default;
+  engineFactoryComponent(const engineFactoryComponent &) = delete;
+  engineFactoryComponent& operator=(const engineFactoryComponent&) = delete;
 
 public :
 
@@ -68,10 +62,11 @@ public :
    * \fn createFactory fonction membre instanciant le singleton engineFactoryComponent
    *
    */
-  static factoryComponent       *createFactory() {
+  static engineFactoryComponent       *createFactory() {
 
     if (IsInstanciate == nullptr) {
-      IsInstanciate = new factoryComponent;
+      /* TEST LE NEW ! */
+      IsInstanciate = new engineFactoryComponent;
       std::cout << "Create factory" << std::endl;
     }
     else
@@ -96,17 +91,17 @@ public :
    *
    */
   template <typename T>
-  T * const buildComponent()
+  T *  buildComponent() const
   {
     return (nmBuildComponent::buildComponentNm<T>()); /* appel du namespace */
   }
 private :
 
-  static factoryComponent       *IsInstanciate;
+  static engineFactoryComponent       *IsInstanciate;
 
 };
 
 /* à mettre dans le .cpp */
-//factoryComponent *factoryComponent::IsInstanciate = nullptr; 
+engineFactoryComponent *engineFactoryComponent::IsInstanciate = nullptr; 
 
 # endif /* !ENGINE_FACTORY_COMPONENT_HPP_*/
