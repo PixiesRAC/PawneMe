@@ -2,6 +2,9 @@
 # define	MAP_H_
 
 #include <SFML/Window.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Window/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -25,11 +28,9 @@ class Map
   int				Map_[LARGEUR_TILE][HAUTEUR_TILE];
    sf::Event			Event_;
 
-  std::map<int, sf::Texture>	Texture_list_;		
-
-  sf::Sprite		m_spriteTile;
-  sf::Image		m_imageTile;
-  sf::Texture		m_textureTile;
+  std::map<int, sf::Texture>	Texture_list_;
+  std::map<int, sf::Sprite>	Sprite_list_;
+  std::map<int, sf::Image>	Image_list_;
  
  public:
   Map(std::string const & tileCharge);

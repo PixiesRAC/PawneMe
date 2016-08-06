@@ -43,11 +43,12 @@ void		Map::drawMap(sf::RenderWindow & window, int NewMap[LARGEUR_TILE][HAUTEUR_T
   int		x = 0;
   int		y = 0;
 
-    while(x != HAUTEUR_TILE) {
+  while(x != HAUTEUR_TILE) {
     while (y != LARGEUR_TILE) {
       //LA ON CHECK SI LA VALEUR EST TOUJOURS LA MEME A LA POSTION ACTUEL
       if (this->Map_[x][y] != NewMap[x][y]) {
 	//SI C'EST DIFFERENT ON ACTUALISE AVEC LE NOUVEAU SPRITE
+	window.draw(this->Sprite_list_[this->Map_[x][y]]);
       }
       y++;
     }
@@ -71,8 +72,10 @@ int		Map::loadTexture(std::string file) {
       
       myReadFile >> str;
       this->Texture_list_[x].loadFromFile(str);
+      this->Image_list_[x].loadFromFile(str);
+      this->Sprite_list_[x].setTexture(this->Texture_list_[x]);
 
-
+      
       std::cout << str << std::endl;
 
       x++;
@@ -80,15 +83,6 @@ int		Map::loadTexture(std::string file) {
   }
 
   myReadFile.close();
-
-  /*if(m_imageTile.loadFromFile(tileCharge)){
-    m_textureTile.loadFromImage(m_imageTile);
-    m_spriteTile.setTexture(m_textureTile);
-    }  
-    else {
-    std::cout << "Erreur chargement tuiles";
-    return -1;
-    }*/
   return 1;
 }
 
@@ -108,22 +102,23 @@ int		Map::getKeyboard() {
   return 1;
 }
 
+
 int		Map::run() {
   
   sf::RenderWindow window(sf::VideoMode(LARGEUR_WINDOW, HAUTEUR_WINDOW), "PAWNME WSH C CMT LA FAMILLE ?");
 
-  Map map1("texture1.jpg");
-
-  int           Map[LARGEUR_TILE][HAUTEUR_TILE] = {0, 0, 0, 0, 0,
-                                                   0, 0, 0, 0, 0,
-                                                   0, 0, 0, 1, 0,
-                                                   0, 0, 0, 1, 0,
-                                                   1, 1, 1, 1, 1,};
-  
   this->loadTexture("Texture_list");
 
-  map1.loadNewMapFromTab(Map);
-  map1.getMap();
+  this->getMap();
+
+
+  sf::Texture t;
+  sf::Sprite s;
+  
+  t.loadFromFile("./texture/texture1.jpg");
+  s.setTexture(t);
+  
+    
 
   while(window.isOpen())
     {
@@ -136,11 +131,20 @@ int		Map::run() {
           }
         }
 
-      if (map1.getKeyboard() == -1)
+      if (this->getKeyboard() == -1)
 	return -1;
 
+
+      
+
       window.clear();
-      //map1.drawMap(window, Map);
+      
+      //window.draw(s);
+      //this->drawMap(window, this->Map_);
+      window.draw(this->Sprite_list_[1]);
+
+
+
       window.display();
     }
 
