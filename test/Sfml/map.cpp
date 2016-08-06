@@ -60,7 +60,7 @@ void		Map::drawMap(sf::RenderWindow & window, int NewMap[LARGEUR_TILE][HAUTEUR_T
 //ICI ON VA READ UN FICHIER AVEC LE NOM DE TOUTES FICHIER A LOAD
 int		Map::loadTexture(std::string file) {
   std::string	tileCharge;
-  int		x;
+  int		x = 0;
   std::string	str;
 
   std::ifstream myReadFile;
@@ -71,10 +71,17 @@ int		Map::loadTexture(std::string file) {
       
       
       myReadFile >> str;
-      this->Texture_list_[x].loadFromFile(str);
-      this->Image_list_[x].loadFromFile(str);
-      this->Sprite_list_[x].setTexture(this->Texture_list_[x]);
+      if (!this->Texture_list_[x].loadFromFile(str)) {
+	std::cout << "SFML : Texture.loadFromFile failed" << std::endl;
+	return -1;
+      }
+	
+      if (!this->Image_list_[x].loadFromFile(str)) {
+	std::cout << "SFML : Image.loadFromFile failed" << std::endl;
+	return -1;
+      }
 
+      this->Sprite_list_[x].setTexture(this->Texture_list_[x]);
       
       std::cout << str << std::endl;
 
@@ -138,11 +145,8 @@ int		Map::run() {
       
 
       window.clear();
-      
-      //window.draw(s);
-      //this->drawMap(window, this->Map_);
-      window.draw(this->Sprite_list_[1]);
-
+      this->drawMap(window, this->Map_);
+      //window.draw(this->Sprite_list_[0]);
 
 
       window.display();
