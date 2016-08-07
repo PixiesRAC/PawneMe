@@ -6,7 +6,6 @@ Map::Map(std::string const & tileCharge) {
 Map::~Map() {
 }
 
-//LOAD DE LA MAP (DOUBLE TABLEAU D'INT)
 int		Map::loadNewMapFromTab(int	map[LARGEUR_TILE][HAUTEUR_TILE]) {
   int		x = 0;
   int		y = 0;
@@ -22,7 +21,6 @@ int		Map::loadNewMapFromTab(int	map[LARGEUR_TILE][HAUTEUR_TILE]) {
   return 1;
 }
 
-//OBTENIR UN AFFICHAGE VISUEL DE LA MAP
 void		Map::getMap() {
   int		x = 0;
   int		y = 0;
@@ -38,7 +36,6 @@ void		Map::getMap() {
   }
 }
 
-//PARCOURS DE LA MAP ET UPDATE DES SPRITES
 void		Map::drawMap(sf::RenderWindow & window, int NewMap[LARGEUR_TILE][HAUTEUR_TILE]) {
   int		x = 0;
   int		y = 0;
@@ -72,7 +69,6 @@ void		Map::drawMap(sf::RenderWindow & window, int NewMap[LARGEUR_TILE][HAUTEUR_T
   }
 }
 
-//ICI ON VA READ UN FICHIER AVEC LE NOM DE TOUTES FICHIER A LOAD
 int		Map::loadTexture(std::string file) {
   std::string	tileCharge;
   int		x = 0;
@@ -213,11 +209,11 @@ int		Map::run() {
       quad3[2].texCoords = sf::Vector2f(0, 50);
       quad3[3].texCoords = sf::Vector2f(50, 50);
 
-      window.draw(quad, states);
+      /* window.draw(quad, states);
       window.draw(this->Vertex_list_[0], states);
       window.draw(quad2, states);
       window.draw(quad3, states);
-	  
+      */  
 
 	this->Vertex_list_[0].setPrimitiveType(sf::Quads);
 	this->Vertex_list_[0].resize(SIZE_TILE);
@@ -227,8 +223,11 @@ int		Map::run() {
 		
 	int f = 0;
 
-	for (unsigned int i = 0; i < LARGEUR_WINDOW; i = i + 50) {
-	  for (unsigned int j = 0; j < HAUTEUR_WINDOW; j = j + 50) {
+	int tamer = 0;
+	int tonper = 0;
+
+	for (unsigned int i = 0; i < LARGEUR_WINDOW && tamer <= LARGEUR_TILE; i = i + 25) {
+	  for (unsigned int j = 0; j < HAUTEUR_WINDOW && tonper <= HAUTEUR_TILE ; j = j + 25) {
 
 	    quad[0].position = sf::Vector2f(i  + IncrementX, j + IncrementY);
 	    quad[1].position = sf::Vector2f(i + IncrementX + i, j + IncrementY);
@@ -236,32 +235,22 @@ int		Map::run() {
 	    quad[3].position = sf::Vector2f(i + IncrementX, j + IncrementY + j);
 	    
 	    quad[0].texCoords = sf::Vector2f(0, 0);
-	    quad[1].texCoords = sf::Vector2f(50, 0);
-	    quad[2].texCoords = sf::Vector2f(0, 50);
-	    quad[3].texCoords = sf::Vector2f(50, 50);
+	    quad[1].texCoords = sf::Vector2f(500, 0);
+	    quad[2].texCoords = sf::Vector2f(0, 500);
+	    quad[3].texCoords = sf::Vector2f(500, 500);
 	    
 	    this->Vertex_list_[f] = quad;
 	    
 	    std::cout << "I : " << i << " J : " << j << std::endl; 
 
-
+	    tonper++;
 	    window.draw(this->Vertex_list_[f], states);
 	    
 	  }
 	  f++;
-	  
-	  
-	  
-	  
-	  
+	  tamer++;
+	  tonper = 0;
 	}
-		
-
-
-
-
-
-
 
       window.display();
     }
