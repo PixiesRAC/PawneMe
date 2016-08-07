@@ -38,11 +38,11 @@ int		main() {
   */
   Map		map("caca");
 						
-  int           Map[LARGEUR_TILE][HAUTEUR_TILE] = {0, 0, 0, 0, 0,
-                                                   0, 0, 0, 0, 0,
-                                                   0, 0, 0, 1, 0,
-                                                   0, 0, 0, 1, 0,
-                                                   1, 1, 1, 1, 1,};
+  int           Map[LARGEUR_TILE][HAUTEUR_TILE] = {1, 1, 1, 1, 1,
+                                                   1, 1, 1, 1, 1,
+                                                   1, 1, 1, 2, 1,
+                                                   1, 1, 1, 2, 1,
+                                                   2, 2, 2, 2, 2,};
 
 
   map.loadNewMapFromTab(Map);

@@ -218,30 +218,33 @@ int		Map::run() {
 	this->Vertex_list_[0].setPrimitiveType(sf::Quads);
 	this->Vertex_list_[0].resize(SIZE_TILE);
 	
-	int IncrementX = (HAUTEUR_TILE * LARGEUR_TILE) + 10;	
-	int IncrementY = (HAUTEUR_TILE * LARGEUR_TILE) + 10;	
+	int IncrementX = 25;//(HAUTEUR_TILE * LARGEUR_TILE) + 10;	
+	int IncrementY = 25; //(HAUTEUR_TILE * LARGEUR_TILE) + 10;	
 		
 	int f = 0;
 
 	int tamer = 0;
 	int tonper = 0;
 
-	for (unsigned int i = 0; i < LARGEUR_WINDOW && tamer <= LARGEUR_TILE; i = i + 25) {
-	  for (unsigned int j = 0; j < HAUTEUR_WINDOW && tonper <= HAUTEUR_TILE ; j = j + 25) {
+	for (unsigned int i = 0; i < LARGEUR_WINDOW && tamer < LARGEUR_TILE; i = i + 50) {
+	  for (unsigned int j = 0; j < HAUTEUR_WINDOW && tonper < HAUTEUR_TILE ; j = j + 50) {
 
-	    quad[0].position = sf::Vector2f(i  + IncrementX, j + IncrementY);
-	    quad[1].position = sf::Vector2f(i + IncrementX + i, j + IncrementY);
-	    quad[2].position = sf::Vector2f(i + IncrementX + i , j + IncrementY + j);
-	    quad[3].position = sf::Vector2f(i + IncrementX, j + IncrementY + j);
+	    quad[0].position = sf::Vector2f(IncrementX + i, IncrementY + j);
+	    quad[1].position = sf::Vector2f((IncrementX * 2) + i, IncrementY + j);
+	    quad[2].position = sf::Vector2f(IncrementX + i, (IncrementY * 2) + j);
+	    quad[3].position = sf::Vector2f((IncrementX * 2) + i, (IncrementY * 2) + j);
 	    
 	    quad[0].texCoords = sf::Vector2f(0, 0);
-	    quad[1].texCoords = sf::Vector2f(500, 0);
-	    quad[2].texCoords = sf::Vector2f(0, 500);
-	    quad[3].texCoords = sf::Vector2f(500, 500);
+	    quad[1].texCoords = sf::Vector2f(50, 0);
+	    quad[2].texCoords = sf::Vector2f(0, 50);
+	    quad[3].texCoords = sf::Vector2f(50, 50);
 	    
 	    this->Vertex_list_[f] = quad;
 	    
-	    std::cout << "I : " << i << " J : " << j << std::endl; 
+	    //std::cout << "I : " << i << " J : " << j << std::endl; 
+
+	    
+	    states.texture = &this->Texture_list_[this->Map_[tonper][tamer]];
 
 	    tonper++;
 	    window.draw(this->Vertex_list_[f], states);

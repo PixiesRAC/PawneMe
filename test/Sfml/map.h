@@ -16,13 +16,13 @@
 #include <array>
 #include <map>
 
-#define LARGEUR_WINDOW 1920
-#define HAUTEUR_WINDOW 1080
+#define LARGEUR_WINDOW 800
+#define HAUTEUR_WINDOW 600
 
 
 #define LARGEUR_TILE 5
 #define HAUTEUR_TILE 5
-#define SIZE_TILE 192
+#define SIZE_TILE 500
 
 //!
 //! Classe SFML dedie a l'affichage du jeu
