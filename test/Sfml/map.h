@@ -16,11 +16,13 @@
 #include <array>
 #include <map>
 
-#define LARGEUR_WINDOW 800
-#define HAUTEUR_WINDOW 600
+#define LARGEUR_WINDOW 1920
+#define HAUTEUR_WINDOW 1080
+
 
 #define LARGEUR_TILE 5
 #define HAUTEUR_TILE 5
+#define SIZE_TILE 192
 
 class Map
 {
@@ -31,6 +33,12 @@ class Map
   std::map<int, sf::Texture>	Texture_list_;
   std::map<int, sf::Sprite>	Sprite_list_;
   std::map<int, sf::Image>	Image_list_;
+
+  std::map<int, sf::VertexArray>	Vertex_list_;
+  
+
+
+  bool                          First_draw_ = true;
  
  public:
   Map(std::string const & tileCharge);
