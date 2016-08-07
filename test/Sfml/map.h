@@ -24,6 +24,11 @@
 #define HAUTEUR_TILE 5
 #define SIZE_TILE 192
 
+//!
+//! Classe SFML dedie a l'affichage du jeu
+//!
+
+
 class Map
 {
  private:    
@@ -44,12 +49,41 @@ class Map
   Map(std::string const & tileCharge);
   ~Map();
 
+  
+  /**
+   * Mise en marche de la boucle principale (Fenetre, Affichage, etc.)
+   */
   int		run();
+
+  /**
+   * Chargement de tout les fichiers de textures a partir d' un fichier lu contenant le path de tout ces fichiers
+   */
   int		loadTexture(std::string file);
+
+  /**
+   * Sers a set notre Map (A remplacer : tableau d'int -> double vector ?)
+   */
   int		loadNewMapFromTab(int map[LARGEUR_TILE][HAUTEUR_TILE]);
+
+  /**
+   * Chargement de la map a partir d'un fichier (A mettre en relation avec la serialisation dans le futur)
+   */
+     
   int		loadMapFromFile(std::string const &);
+
+  /**
+   * Obtenir un affichage graphique de la map
+   */
   void		getMap();
+
+  /**
+   * Affichage de la Map dans la fenetre
+   */
   void		drawMap(sf::RenderWindow & window, int map[LARGEUR_TILE][HAUTEUR_TILE]);
+
+  /**
+   * Recuperation des events du clavier
+   */ 
   int		getKeyboard();
 };
 
