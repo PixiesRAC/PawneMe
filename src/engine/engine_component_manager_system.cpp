@@ -11,17 +11,15 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
 void        engineComponentManagerSystem::updateComponent(t_Entity type)
 {
   std::for_each(_vComponent.begin(), _vComponent.end(), [type](engineComponent *elem){  /* LAMBDA */
+      
+      /* Utilisé un thread pour chaque type d'update, Si il y a plusieur type similaire les mettre dans une queue et attendre la fin du thread (idle) du type voulu */
       if (type == t_Entity::ALL)
 	{
 	  elem->update();
 	  /* UPDATE ALL */
 	}
       if (elem->getTypeEntity() == type) {
-	//	if (elem->getTypeEntity() == t_Entity::SON) { /* Surement a stocker dans une map ou alors on fait aussi des specialisation de template pour la fonction on verra apres! */
-	//	componentSound  *RealCpnmt = static_cast<componentSound*>(elem); /* Utile pour le specificFunction, à voir ensuite si on call pas specificFunction dans la methode update de la class fils en l'occurence componentSound la */
 	elem->update();
-	//	  RealCpnmt->specificFunction();
-	//	}
       }
     });
 }
