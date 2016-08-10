@@ -25,3 +25,5 @@ void        engineComponentManagerSystem::updateComponent(t_Entity type)
       }
     });
 }
+
+engineComponentManagerSystem	*engineComponentManagerSystem::_IsManagerCreate = nullptr;

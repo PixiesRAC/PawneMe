@@ -11,13 +11,13 @@ typedef enum class      e_Entity // (une entité est tout ce qui existe dans le 
 {
   ALL,
     OTHER,
+    NOTHING,
+    MAP,
     SON,
     PNJ,
-    NOTHING,
+    HERO,
     MENU,
     KEYKOARD,
-    RAC,
-    HERO,
     }                   t_Entity;
 
 #endif /* !ENGINE_ENTITY_HPP_ */

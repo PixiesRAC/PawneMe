@@ -13,10 +13,42 @@
  * \author pixies
  */
 
-class   engineComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires Faire un singleton*/
+class   engineComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires SINGLETON*/
 {
+  engineComponentManagerSystem() = default;
+  engineComponentManagerSystem(engineComponentManagerSystem&) = delete;
+  ~engineComponentManagerSystem() = default;
+  engineComponentManagerSystem& operator=(engineComponentManagerSystem&) = delete;
+  
 public :
 
+    
+  /**
+   * \fn createManager fonction static permettant d'instancier la classe 
+   * engineComponentManagerSystem
+   */
+  
+  static engineComponentManagerSystem*		createManager()
+  {
+    if (_IsManagerCreate == nullptr)
+      _IsManagerCreate = new engineComponentManagerSystem;
+    return (_IsManagerCreate);
+  }
+
+    /**
+     * \fn killManager fonction static permettant de delete l'instance de  la classe engineComponentManagerSystem
+   */
+
+    static void	killManager()
+  {
+    if (_IsManagerCreate != nullptr) {
+      delete(_IsManagerCreate);
+      _IsManagerCreate = nullptr;
+    }
+  }
+
+    static engineComponentManagerSystem	*_IsManagerCreate;
+  
   /**
    * \fn fillVectorComponent methode permettant de remplir un vector de
    *	components

@@ -1,0 +1,26 @@
+#include "../engine/engine_component.hpp"
+
+/** 
+ * \class componentMap
+ * \brief Class component du son
+ * \author pixies
+ */
+
+class   componentMap : public engineComponent
+{
+public :
+  /* les default surement a modifier */
+  componentMap() = default;
+  ~componentMap() = default;
+  componentMap(componentMap&) = default;
+  componentMap& operator=(componentMap&) = default;
+
+  virtual void update();
+
+  /* test */
+  void	specificFunction();
+  
+  /* test */
+  int	_specificValue;
+};
+

@@ -4,6 +4,7 @@
 #include <iostream> /* mettre les instruction dans un .cpp */
 #include "./engine_component.hpp"
 #include "../component/componentSound.hpp"
+#include "../component/componentMap.hpp"
 
 /** 
  * \namespace nmBuildComponent
@@ -41,6 +42,17 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     /* GO INIT */
     return (entite);
   }
+
+    /* specialisation de template pour le composant map */
+  template <>
+  componentMap *buildComponentNm<componentMap>()
+  {
+    componentMap *entite = new componentMap;
+    entite->setTypeEntity(t_Entity::MAP);
+    std::cout << "New component de MAP : " << std::endl;
+    /* GO INIT */
+    return (entite);
+  }
 };
 
 /** 
@@ -65,7 +77,7 @@ public :
   static engineFactoryComponent       *createFactory() {
 
     if (IsInstanciate == nullptr) {
-      /* TEST LE NEW ! */
+      /* MODIF TEST LE NEW ! */
       IsInstanciate = new engineFactoryComponent;
       std::cout << "Create factory" << std::endl;
     }

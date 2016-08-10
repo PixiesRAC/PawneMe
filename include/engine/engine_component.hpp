@@ -28,6 +28,7 @@ public :
    * \fn getTypeEntity fonction membre const renvoyant le type d'entité
    *     
    */
+
   t_Entity getTypeEntity() const;
   
   /**

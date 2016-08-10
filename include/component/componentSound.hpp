@@ -1,3 +1,6 @@
+#ifndef COMPONENTSOUND_HPP_
+# define COMPONENTSOUND_HPP_
+
 #include "../engine/engine_component.hpp"
 
 /** 
@@ -24,3 +27,4 @@ public :
   int	_specificValue;
 };
 
+#endif /* !COMPONENTSOUND_HPP */

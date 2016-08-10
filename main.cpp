@@ -1,30 +1,24 @@
-#include "./include/engine/engine_factory_component.hpp"
 #include "./include/engine/engine_component_manager_system.hpp"
+#include "./include/engine/engine_factory_component.hpp"
 
 #include <typeinfo> /* test */
 
+
 int					main()
 {
-  engineComponentManagerSystem		CpnmtMSystem;
+  engineComponentManagerSystem		*CpnmtMSystem = engineComponentManagerSystem::createManager();
   engineFactoryComponent		*factoryComponent = engineFactoryComponent::createFactory();
 
-  auto	MenuSound = factoryComponent->buildComponent<componentSound>();
-  auto	GameSound = factoryComponent->buildComponent<componentSound>();
+  /* Les initialisation se feront dans le build */
+  auto	map = factoryComponent->buildComponent<componentMap>();
 
-  std::cout << typeid(MenuSound).name() << std::endl;
-  std::cout << typeid(GameSound).name() << std::endl;
-  /* INIT, VIA UNE FONCTION NORMALEMENT et surement par le CpnmtMSysteme */
-  MenuSound->_specificValue = 42;
-  GameSound->_specificValue = 12;
-  
-  CpnmtMSystem.fillVectorComponent(MenuSound);
-  CpnmtMSystem.fillVectorComponent(GameSound);
-  //CpnmtMSystem.updateComponent(t_Entity::RAC);
-  CpnmtMSystem.updateComponent(t_Entity::SON); /* update juste le son */
-  //CpnmtMSystem.updateComponent(); /* update tout */
+  CpnmtMSystem->fillVectorComponent(map);
 
-  delete MenuSound;
-  delete GameSound;
+  CpnmtMSystem->updateComponent(t_Entity::MAP);
+
+
+  delete map;
   engineFactoryComponent::kill();
+  engineComponentManagerSystem::killManager();
   return (0);
 }
