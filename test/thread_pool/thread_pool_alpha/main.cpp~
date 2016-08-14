@@ -1,0 +1,77 @@
+#include <thread>
+#include <condition_variable>
+#include <mutex>
+
+#include <vector>
+#include <queue>
+
+#include <iostream>
+
+void	fonction_thread_test()
+{
+  /* Simulation work */
+  std::this_thread::sleep_for (std::chrono::seconds(1));
+  std::cout << "Fonction pour test la thread pool" << std::endl;
+}
+
+/* Prend la signature de la tache qu'on devra thread en param, ca sera le update en l'occurence */
+
+template <typename TASKSIGN>
+class	threadPool
+{
+
+public :
+  
+  threadPool(unsigned short size) : _size(size) {
+    std::cout << "Creation d'une thread pool de :" << size << " " << std::endl;
+    while (size != 0) {
+      //      this->_VThread.push_back(std::thread(&threadPool::fctThread, this));
+      --size;
+    }
+  };
+  
+  threadPool() {
+    std::cout << "Thread Pool de 0" << std::endl;
+  };
+  
+  ~threadPool(){
+    for (auto &thread : this->_VThread) {
+      if (thread.joinable()) {
+	thread.join();
+      }
+    }
+  };
+  
+  threadPool(threadPool&) = delete;
+  threadPool operator=(threadPool&) = delete;
+  
+  /* Permettra de lancer la function voulu dans le thread qui à ete préalablement construit */
+  bool	taskLaunch(std::function<TASKSIGN>);
+
+private :
+
+  /* vector contenant le nombre de thread */
+  std::vector<std::thread>		_VThread;
+
+  /* queue contenant les taches des threads */
+  std::queue<TASKSIGN>			_QTasks;
+
+  /* Nombre de thread restant */
+  unsigned short			_size;
+
+
+public : 
+  TASKSIGN	const &fctThread() {
+   
+    std::cout << "Creation d'un thread" << std::endl;
+  };
+
+};
+
+int	main()
+{
+  threadPool<std::function<void()>>	thPoold(4);
+
+  thPoold.fctThread();
+  return (0);
+}

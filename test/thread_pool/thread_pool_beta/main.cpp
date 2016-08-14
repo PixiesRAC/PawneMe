@@ -91,9 +91,16 @@ int	main()
   threadPool	tP(3);
 
   tP.addTask(fct_thread);
-  for (int i = 0; i != 100000; ++i) {
-    std::cout << "Deroulement du jeux" << std::endl;
-  }
+  //  for (int i = 0; i != 100000; ++i) {
+  //    std::cout << "Deroulement du jeux" << std::endl;
+  //  }
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
+  tP.addTask(fct_thread);
   tP.addTask(fct_thread);
   tP.addTask(fct_thread);
   tP.addTask(fct_thread);
