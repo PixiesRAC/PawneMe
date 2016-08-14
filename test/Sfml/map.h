@@ -22,7 +22,7 @@
 class Map
 {
  private:    
-  int				Map_[LARGEUR_TILE][HAUTEUR_TILE];       
+  int				Map_[LARGEUR_TILE][HAUTEUR_TILE];
    sf::Event			Event_;
 
   std::map<int, sf::Texture>	Texture_list_;		

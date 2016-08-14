@@ -113,7 +113,6 @@ private :
 
 };
 
-/* à mettre dans le .cpp */
 engineFactoryComponent *engineFactoryComponent::IsInstanciate = nullptr; 
 
 # endif /* !ENGINE_FACTORY_COMPONENT_HPP_*/
