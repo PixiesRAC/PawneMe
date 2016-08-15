@@ -15,7 +15,7 @@
 
 class   engineComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires SINGLETON*/
 {
-  engineComponentManagerSystem() : _ThPool(8) {}
+  engineComponentManagerSystem() : _ThPool(42) {}
   engineComponentManagerSystem(engineComponentManagerSystem&) = delete;
   ~engineComponentManagerSystem() = default;
   engineComponentManagerSystem& operator=(engineComponentManagerSystem&) = delete;

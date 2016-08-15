@@ -107,15 +107,21 @@ private :
 
   void	init(unsigned short size) {
     
-    /* Verification nombre de thread max */
-    if (size > std::thread::hardware_concurrency()) {
-      size = std::thread::hardware_concurrency();
-      std::cout << "Trop de thread demandé, thread remis à : " << size << std::endl;
-    }
+    //    if (size > std::thread::hardware_concurrency()) {
+    //      size = std::thread::hardware_concurrency();
+    //    }
     this->_size = size;
-    while (size != 0) {
-      this->_VThread.push_back(std::thread(&threadPool::fctThread, this));
-      --size;
+    try {
+      while (size != 0) {
+	this->_VThread.push_back(std::thread(&threadPool::fctThread, this));
+	--size;
+      }
+    }
+    catch ( const std::exception & e ) {
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+      std::cout << e.what() << std::endl;;
+      std::cout << "Trop de thread demandé, thread remis à : " << this->_VThread.size() << std::endl;
+      this->_size = this->_VThread.size();
     }
     std::cout << "SIZE : " << this->_VThread.size() << std::endl;
   };
@@ -148,11 +154,12 @@ private :
   
   /*  TASKSIGN*/void	/*const &*/fctThread() {
 
+    static int	nb = 0;
     std::function<void()>		task;
 
     std::unique_lock<std::mutex>	uLock(_mutex);
 
-    std::cout << "En attente de l'utilisation d'un thread" << std::endl;    
+    std::cout << "En attente de l'utilisation d'un thread : " << ++nb << std::endl;    
     _cond_var.wait(uLock,
 		   [this]
 		   {
