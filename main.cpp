@@ -20,6 +20,10 @@ int					main()
   CpnmtMSystem->fillVectorComponent(map2);
   CpnmtMSystem->fillVectorComponent(son);
   CpnmtMSystem->fillVectorComponent(son2);
+  CpnmtMSystem->fillVectorComponent(son);
+  CpnmtMSystem->fillVectorComponent(son2);
+  CpnmtMSystem->fillVectorComponent(son);
+
 
   CpnmtMSystem->updateComponent();
 

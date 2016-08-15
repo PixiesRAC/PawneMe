@@ -12,6 +12,7 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
 
 void 	engineComponentManagerSystem::launch_update(engineComponent *elem)
 {
+  /* voir si on doit mettre un mutex */
   elem->update();
 }
 
@@ -23,7 +24,10 @@ void        engineComponentManagerSystem::updateComponent(t_Entity type)
       auto fct = std::make_shared<std::function<void()>>(std::bind(&engineComponentManagerSystem::launch_update, this, elem));
       if (type == t_Entity::ALL)
 	{
-	  this->_ThPool.taskLaunch(*fct.get());
+	  /* Faire l'algo de gestion de type d'update par entité */
+	  if ((this->_ThPool.taskLaunch(*fct.get())) == false) {
+	    std::cout << "Il faut recrée des threads" << std::endl;
+	  }
 	}
       if (elem->getTypeEntity() == type) {
 	this->_ThPool.taskLaunch(*fct.get());
@@ -31,4 +35,4 @@ void        engineComponentManagerSystem::updateComponent(t_Entity type)
     });
 }
 
-    engineComponentManagerSystem	*engineComponentManagerSystem::_IsManagerCreate = nullptr;
+engineComponentManagerSystem	*engineComponentManagerSystem::_IsManagerCreate = nullptr;
