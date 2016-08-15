@@ -12,10 +12,8 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
 
 void 	engineComponentManagerSystem::launch_update(engineComponent *elem)
 {
-  /* voir si on doit mettre un mutex */
   std::this_thread::sleep_for(std::chrono::seconds(1));
   elem->update();
-  //  std::cout << "VOici l'id du thread " << std::this_thread::get_id() << std::endl;
 }
 
 void        engineComponentManagerSystem::updateComponent(t_Entity type)
