@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-void	fonction_thread_test()
+int	fonction_thread_test()
 {
   /* Simulation work */
   std::this_thread::sleep_for (std::chrono::seconds(1));
@@ -70,7 +70,7 @@ private :
   std::mutex				_mutex;
   
 public : 
-  TASKSIGN	const &fctThread() {
+  TASKSIGN const 	&fctThread() {
 
     TASKSIGN				task;
     std::unique_lock<std::mutex>	uLock(_mutex);
@@ -86,7 +86,7 @@ public :
     task = this->_QTasks.front();
     this->_QTasks.pop();
     task();
-
+    return (task);
   }
 };
 
@@ -100,7 +100,7 @@ bool	threadPool<TASKSIGN>::taskLaunch(TASKSIGN f) {
 
 int	main()
 {
-  threadPool<std::function<void()>>	thPoold(40);
+  threadPool<std::function<int()>>	thPoold(40);
 
   thPoold.taskLaunch(fonction_thread_test);
   thPoold.taskLaunch(fonction_thread_test);

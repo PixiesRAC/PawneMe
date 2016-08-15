@@ -1,6 +1,8 @@
 #ifndef THREADPOOL_HPP_
 # define THREADPOOL_HPP_
 
+#include "../engine/engine_component.hpp"
+
 #include <thread>
 #include <condition_variable>
 #include <mutex>
@@ -19,7 +21,7 @@
  * \author pixies
  */
 
-template <typename TASKSIGN>
+template <typename TASKSIGN> /* Signature de fonction de la tache */
 class	threadPool
 {
 
@@ -78,7 +80,16 @@ public :
    * \brief Permettra dans lancer la fonction voulu dans le thread en att   *	ente
    */
   
-  bool	taskLaunch(TASKSIGN);
+  bool	taskLaunch(TASKSIGN f)	{
+    std::unique_lock<std::mutex>	uLock(_mutex);
+
+    this->_QTasks.push(f);
+    this->_size--;
+    _cond_var.notify_one();
+    if (this->_size > 0)
+      return (true);
+    return (false);
+  }
 
 private :
 
@@ -93,7 +104,7 @@ private :
    *
   */
   
-  std::queue<TASKSIGN>			_QTasks;
+  std::queue<TASKSIGN>		    	_QTasks;
 
   unsigned short			_size;
 
@@ -106,9 +117,11 @@ private :
    * \brief Fonction lancé par le thread qui lancera la fonction voulu pa   *	r l'utilisateur
    */
   
-  TASKSIGN	const &fctThread() {
+  /*  TASKSIGN*/void	/*const &*/fctThread() {
 
-    TASKSIGN				task;
+
+    std::function<void()>		task;
+
     std::unique_lock<std::mutex>	uLock(_mutex);
 
     std::cout << "En attente de l'utilisation d'un thread" << std::endl;    
@@ -118,8 +131,10 @@ private :
 		     return (!(this->_QTasks.empty()));
 		   }
 		   );
-
     task = this->_QTasks.front();
+    if (task == nullptr) {
+      std::cout << "NULL" << std::endl;
+    }	
     this->_QTasks.pop();
     task();
   }

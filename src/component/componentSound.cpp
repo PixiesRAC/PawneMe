@@ -4,7 +4,7 @@
 void	componentSound::update()
 {
   std::cout << "Update de componentSound" << std::endl;
-  this->specificFunction();
+  //  this->specificFunction();
 }
 
 void	componentSound::specificFunction()

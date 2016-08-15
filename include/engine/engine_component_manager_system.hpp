@@ -2,8 +2,7 @@
 # define ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_
 
 #include <vector>
-#include "./engine_component.hpp"
-
+#include "../threadPool/threadPool.hpp"
 
 /** 
  * \class engineComponentManagerSystem
@@ -15,7 +14,7 @@
 
 class   engineComponentManagerSystem /* class qui va gerer les entité et call les fonction necessaires SINGLETON*/
 {
-  engineComponentManagerSystem() = default;
+  engineComponentManagerSystem() : _ThPool(8) {}
   engineComponentManagerSystem(engineComponentManagerSystem&) = delete;
   ~engineComponentManagerSystem() = default;
   engineComponentManagerSystem& operator=(engineComponentManagerSystem&) = delete;
@@ -39,7 +38,7 @@ public :
      * \fn killManager fonction static permettant de delete l'instance de  la classe engineComponentManagerSystem
    */
 
-    static void	killManager()
+  static void	killManager()
   {
     if (_IsManagerCreate != nullptr) {
       delete(_IsManagerCreate);
@@ -65,9 +64,20 @@ public :
    * l'evenement recus !
    */
   void        updateComponent(t_Entity type = t_Entity::ALL);
+
+  /**
+   * \fn launch_update
+   *\brief Fonction qui va s'occuper de lancer les updates
+   *	cette fonction sera call dans un thread, car on ne peut
+   *   pas call directement l'update ca met  error: invalid use of non-st   *   atic member function
+   *  \param engineComponent*
+   */
   
-private :
-  std::vector<engineComponent*>     _vComponent; /* Liste de  composant */
+  void		launch_update(engineComponent *);
+  
+    private :
+     std::vector<engineComponent*>		_vComponent; /* Liste de  composant */
+  threadPool<std::function<void()>>		_ThPool;
 };
 
 #endif /* !ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_*/

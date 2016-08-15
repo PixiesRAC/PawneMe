@@ -6,7 +6,7 @@
 #include <vector>
 #include <queue>
 
-void	fct_thread()
+void	fct_thread(int test)
 {
   std::this_thread::sleep_for (std::chrono::seconds(3));
   std::cout << "Je suis dans ma fonction thread" << std::endl;
@@ -23,7 +23,7 @@ public :
   ~threadPool();
 
   /* Ajoute les taches a la queue */
-  void	addTask(std::function<void()>);
+  void	addTask(std::function<void(int)>);
 
 private :
 
@@ -31,19 +31,19 @@ private :
   std::vector<std::thread>		_vThread;
 
   /* Stock les taches, en gros la taches de la fonction utilisée */
-  std::queue<std::function<void()>>	_qTasks;
+  std::queue<std::function<void(int)>>	_qTasks;
 
   std::condition_variable	       	_cond_var;
   std::mutex				_mutex;
 
   bool					done;
-  void					fct_call();
+  void					fct_call(int value);
 };
 
 threadPool::threadPool(int size) {
 
   while (size != 0) {
-    this->_vThread.push_back(std::thread(&threadPool::fct_call, this));
+    this->_vThread.push_back(std::thread(&threadPool::fct_call, this, size));
     --size;
   }
 }
@@ -56,9 +56,9 @@ threadPool::~threadPool() {
   }
 }
 
-void threadPool::fct_call() {
+void threadPool::fct_call(int value) {
 
-  std::function<void()>	fctTask;
+  std::function<void(int)>	fctTask;
 
   std::unique_lock<std::mutex>	verrou(_mutex);
 
@@ -75,10 +75,10 @@ void threadPool::fct_call() {
   std::cout << "J'ai fini d'attendre" << std::endl;
   fctTask = this->_qTasks.front();
   _qTasks.pop();
-  fctTask();
+  fctTask(42);
 }
 
-void	threadPool::addTask(std::function<void()> fct) {
+void	threadPool::addTask(std::function<void(int)> fct) {
   
   std::unique_lock<std::mutex>	verrou(_mutex);
   _qTasks.push(fct);

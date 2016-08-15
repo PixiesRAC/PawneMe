@@ -12,11 +12,15 @@
  * \author pixies
  */
 
+#include <iostream>
 class   engineComponent /* class absraite */
 {
 public :
   
-  virtual ~engineComponent() = default;
+  virtual ~engineComponent() {
+    std::cout << "Destruction de engineComponent" << std::endl;
+    printf("%p\n", this);
+  }
 
   /**
    * \fn update() methode update permettant d'updaté les composant
