@@ -13,26 +13,29 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
 void 	engineComponentManagerSystem::launch_update(engineComponent *elem)
 {
   /* voir si on doit mettre un mutex */
+  std::this_thread::sleep_for(std::chrono::seconds(1));
   elem->update();
+  //  std::cout << "VOici l'id du thread " << std::this_thread::get_id() << std::endl;
 }
 
 void        engineComponentManagerSystem::updateComponent(t_Entity type)
 {
   std::for_each(_vComponent.begin(), _vComponent.end(), [this, type](engineComponent *elem){  /* LAMBDA */
-      
-      /* Utilisé un thread pour chaque type d'update, Si il y a plusieur type similaire les mettre dans une queue et attendre la fin du thread (idle) du type voulu */
-      auto fct = std::make_shared<std::function<void()>>(std::bind(&engineComponentManagerSystem::launch_update, this, elem));
-      if (type == t_Entity::ALL)
-	{
-	  /* Faire l'algo de gestion de type d'update par entité */
+
+      if (elem != nullptr) {
+	auto fct = std::make_shared<std::function<void()>>(std::bind(&engineComponentManagerSystem::launch_update, this, elem));
+	if (type == t_Entity::ALL)
+	  {
+	    if ((this->_ThPool.taskLaunch(*fct.get())) == false) {
+	      this->_ThPool.reload(8);
+	    }
+	  }
+	if (elem->getTypeEntity() == type) {
 	  if ((this->_ThPool.taskLaunch(*fct.get())) == false) {
-	    std::cout << "Il faut recrée des threads" << std::endl;
+	    this->_ThPool.reload(8);
 	  }
 	}
-      if (elem->getTypeEntity() == type) {
-	this->_ThPool.taskLaunch(*fct.get());
-      }
-    });
+      }});
 }
 
 engineComponentManagerSystem	*engineComponentManagerSystem::_IsManagerCreate = nullptr;

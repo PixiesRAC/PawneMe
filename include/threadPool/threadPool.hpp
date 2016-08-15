@@ -36,16 +36,7 @@ public :
   
   threadPool(unsigned short size) : _size(size) {
     std::cout << "Creation d'une thread pool de :" << size << " " << std::endl;
-    /* Verification nombre de thread max */
-    if (size > std::thread::hardware_concurrency()) {
-      size = std::thread::hardware_concurrency();
-      std::cout << "Trop de thread demandé, thread remis à : " << size << std::endl;
-      this->_size = size;
-    }
-    while (size != 0) {
-      this->_VThread.push_back(std::thread(&threadPool::fctThread, this));
-      --size;
-    }
+    this->init(size);
   };
 
   /**
@@ -71,9 +62,10 @@ public :
     }
   };
   
-  threadPool(threadPool&) = delete;
-  threadPool operator=(threadPool&) = delete;
+  threadPool(threadPool<TASKSIGN>& copy) = default;
 
+  
+  threadPool<TASKSIGN>& operator=(threadPool<TASKSIGN>& copy) = default;
   /**
    * \fn taskLaunch
    * \param TASKSIGN correspond a la signature de fonction des threads
@@ -91,8 +83,32 @@ public :
     return (false);
   }
 
+  void	reload(unsigned short size)
+  {
+    if (this->_size <= 0) {
+      std::cout << "Reload de la thread pool de :" << size << " " << std::endl;
+      this->init(size);
+    }
+    else {
+      std::cout << "Vous n'avez pas besoin de reload la thread pool" << std::endl;
+    }
+  }
+  
 private :
 
+  void	init(unsigned short size) {
+    /* Verification nombre de thread max */
+    if (size > std::thread::hardware_concurrency()) {
+      size = std::thread::hardware_concurrency();
+      std::cout << "Trop de thread demandé, thread remis à : " << size << std::endl;
+      this->_size = size;
+    }
+    while (size != 0) {
+      this->_VThread.push_back(std::thread(&threadPool::fctThread, this));
+      --size;
+    }    
+  };
+  
   /**
    *	\brief std::vector contenant le nombre de thread 
    *
@@ -132,9 +148,6 @@ private :
 		   }
 		   );
     task = this->_QTasks.front();
-    if (task == nullptr) {
-      std::cout << "NULL" << std::endl;
-    }	
     this->_QTasks.pop();
     task();
   }

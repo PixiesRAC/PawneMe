@@ -1,6 +1,7 @@
 #ifndef ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_
 # define ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_
 
+#include <queue>
 #include <vector>
 #include "../threadPool/threadPool.hpp"
 
@@ -77,7 +78,9 @@ public :
   
     private :
      std::vector<engineComponent*>		_vComponent; /* Liste de  composant */
+  
   threadPool<std::function<void()>>		_ThPool;
+  
 };
 
 #endif /* !ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_*/

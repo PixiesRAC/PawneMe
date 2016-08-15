@@ -23,7 +23,12 @@ int					main()
   CpnmtMSystem->fillVectorComponent(son);
   CpnmtMSystem->fillVectorComponent(son2);
   CpnmtMSystem->fillVectorComponent(son);
-
+  CpnmtMSystem->fillVectorComponent(son);
+  CpnmtMSystem->fillVectorComponent(son2);
+  CpnmtMSystem->fillVectorComponent(son);
+  CpnmtMSystem->fillVectorComponent(son);
+  CpnmtMSystem->fillVectorComponent(son2);
+  CpnmtMSystem->fillVectorComponent(son);
 
   CpnmtMSystem->updateComponent();
 
