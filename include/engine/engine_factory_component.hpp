@@ -5,6 +5,7 @@
 #include "./engine_component.hpp"
 #include "../component/componentSound.hpp"
 #include "../component/componentMap.hpp"
+#include "../component/componentMenu.hpp"
 
 /** 
  * \namespace nmBuildComponent
@@ -32,6 +33,17 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     return (entite);
   }
 
+    /* specialisation de template pour le composant menu */
+  template <>
+  componentMenu *buildComponentNm<componentMenu>()
+  {
+    componentMenu *entite = new componentMenu;
+    entite->setTypeEntity(t_Entity::SON);
+    std::cout << "New component de Menu : " << std::endl;
+    /* GO INIT */
+    return (entite);
+  }
+  
   /* specialisation de template pour le composant son */
   template <>
   componentSound *buildComponentNm<componentSound>()

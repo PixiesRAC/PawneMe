@@ -28,6 +28,12 @@ public :
    */
   virtual void update() = 0;
 
+    /**
+   * \fn init() methode qui initialise les composants
+   *     associé à une entité
+   */
+  virtual void	init() = 0;
+  
   /**
    * \fn getTypeEntity fonction membre const renvoyant le type d'entité
    *     

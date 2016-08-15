@@ -20,6 +20,7 @@ public :
 
   virtual void update();
 
+  virtual void init() {};
   /* test */
   void	specificFunction();
   

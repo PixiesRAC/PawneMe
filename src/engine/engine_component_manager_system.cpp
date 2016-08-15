@@ -10,18 +10,22 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
     this->_vComponent.push_back(cpnmt);
 }
 
-void 	engineComponentManagerSystem::launch_update(engineComponent *elem)
+void 	engineComponentManagerSystem::launch_component(engineComponent *elem)
 {
   std::this_thread::sleep_for(std::chrono::seconds(1));
-  elem->update();
+  if (this->_state == t_stateComponent::UPDATE)
+    elem->update();
+  else if (this->_state == t_stateComponent::INIT)
+    elem->init();
 }
 
-void        engineComponentManagerSystem::updateComponent(t_Entity type)
+void        engineComponentManagerSystem::updateComponent(t_Entity type, t_stateComponent state)
 {
+  this->_state = state;
   std::for_each(_vComponent.begin(), _vComponent.end(), [this, type](engineComponent *elem){  /* LAMBDA */
 
       if (elem != nullptr) {
-	auto fct = std::make_shared<std::function<void()>>(std::bind(&engineComponentManagerSystem::launch_update, this, elem));
+	auto fct = std::make_shared<std::function<void()>>(std::bind(&engineComponentManagerSystem::launch_component, this, elem));
 	if (type == t_Entity::ALL)
 	  {
 	    if ((this->_ThPool.taskLaunch(*fct.get())) == false) {

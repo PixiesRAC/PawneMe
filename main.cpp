@@ -9,28 +9,18 @@ int					main()
   engineComponentManagerSystem		*CpnmtMSystem = engineComponentManagerSystem::createManager();
   engineFactoryComponent		*factoryComponent = engineFactoryComponent::createFactory();
   
-  /* Les initialisation se feront dans le build */
-  auto	map = factoryComponent->buildComponent<componentMap>();
-  auto	map2 = factoryComponent->buildComponent<componentMap>();
-  auto	son = factoryComponent->buildComponent<componentSound>();
-  auto	son2 = factoryComponent->buildComponent<componentSound>();
+  /*auto	menuStart = */
+  factoryComponent->buildComponent<componentMenu>();
+  auto	sonStart = factoryComponent->buildComponent<componentSound>();
+  
 
   
-  CpnmtMSystem->fillVectorComponent(map);
-  CpnmtMSystem->fillVectorComponent(map2);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son2);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son2);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son2);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son);
-  CpnmtMSystem->fillVectorComponent(son2);
-  CpnmtMSystem->fillVectorComponent(son);
 
-  CpnmtMSystem->updateComponent();
+  CpnmtMSystem->fillVectorComponent(sonStart);
+
+  /* les updates se feront une fois qu'on aura choisis un mode dans le menu principal (A VOIR PAS SUR)*/
+  
+  CpnmtMSystem->updateComponent(t_Entity::ALL, t_stateComponent::INIT);
 
   /* Voir quand delete les composants */
   engineFactoryComponent::kill();

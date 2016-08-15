@@ -5,6 +5,19 @@
 #include <vector>
 #include "../threadPool/threadPool.hpp"
 
+/**
+* \enum t_stateComponent
+* \brief Union permettant de savoir si on thread les updates ou les init
+* \author Pixies
+*/
+
+typedef enum class      e_stateComponent // UPDATE OU INIT
+{
+  INIT,
+    UPDATE
+    }			t_stateComponent;
+
+
 /** 
  * \class engineComponentManagerSystem
  * \brief Class contenant divers methodes/fonctions membre
@@ -64,8 +77,21 @@ public :
    * par exemple juste le son ou juste un personnage en fonction de 
    * l'evenement recus !
    */
-  void        updateComponent(t_Entity type = t_Entity::ALL);
+  void        updateComponent(t_Entity type = t_Entity::ALL, t_stateComponent state = t_stateComponent::UPDATE);
 
+
+private :
+
+    /**
+   * \fn launch_init
+   *\brief Fonction qui va s'occuper de lancer les inits
+   *	cette fonction sera call dans un thread, car on ne peut
+   *   pas call directement l'update ca met  error: invalid use of non-st   *   atic member function
+   *  \param engineComponent*
+   */
+  
+  void		launch_init(engineComponent *);
+  
   /**
    * \fn launch_update
    *\brief Fonction qui va s'occuper de lancer les updates
@@ -74,13 +100,13 @@ public :
    *  \param engineComponent*
    */
   
-  void		launch_update(engineComponent *);
+  void		launch_component(engineComponent *);
   
-    private :
      std::vector<engineComponent*>		_vComponent; /* Liste de  composant */
   
   threadPool<std::function<void()>>		_ThPool;
-  
+
+  t_stateComponent _state;
 };
 
 #endif /* !ENGINE_COMPONENT_MANAGER_SYSTEM_HPP_*/

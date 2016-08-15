@@ -20,6 +20,7 @@ public :
 
   virtual void update();
 
+  virtual void init() {};
   /* Signature de fonction a changer surement
    Possibilité de faire la deserialisation dans un template pour 
   réduire le temps que ca prendra au runtime*/
