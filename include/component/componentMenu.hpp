@@ -3,6 +3,7 @@
 
 #include "../engine/engine_component.hpp"
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 /** 
  * \class componentMenu
@@ -26,8 +27,8 @@ private :
   
   void		keyboardMenu();
   
-  
-  sf::Window	_window;
+
+  sf::RenderWindow _window;
   sf::Event	_event;
 };
 

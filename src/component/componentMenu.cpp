@@ -20,12 +20,15 @@ void             componentMenu::keyboardMenu()
 
 componentMenu::componentMenu()
 {
-  this->init();
+  /* LA CREATION DE LA FENETRE DOIT ETRE FAIT DANS LE THREAD PRINCIPAL */
+  this->_window.create(sf::VideoMode(800, 600), "PawneMe");
+  this->_window.setActive(false);
+
 }
 
 void componentMenu::init()
 {
-  this->_window.create(sf::VideoMode(800, 600), "PawneMe");
+  
   this->_window.setVerticalSyncEnabled(true);
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
   while (this->_window.isOpen())

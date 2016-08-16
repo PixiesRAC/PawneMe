@@ -9,18 +9,19 @@ int					main()
   engineComponentManagerSystem		*CpnmtMSystem = engineComponentManagerSystem::createManager();
   engineFactoryComponent		*factoryComponent = engineFactoryComponent::createFactory();
   
-  /*auto	menuStart = */
-  factoryComponent->buildComponent<componentMenu>();
+  auto	menuStart = factoryComponent->buildComponent<componentMenu>();
   auto	sonStart = factoryComponent->buildComponent<componentSound>();
+  auto	map = factoryComponent->buildComponent<componentMap>();
   
 
-  
 
   CpnmtMSystem->fillVectorComponent(sonStart);
+  CpnmtMSystem->fillVectorComponent(menuStart);
+  CpnmtMSystem->fillVectorComponent(map);
 
-  /* les updates se feront une fois qu'on aura choisis un mode dans le menu principal (A VOIR PAS SUR)*/
-  
+  /* soit on thread l'init ou l'update, l'update sera dans la boucle de jeux */  
   CpnmtMSystem->updateComponent(t_Entity::ALL, t_stateComponent::INIT);
+  CpnmtMSystem->updateComponent();
 
   /* Voir quand delete les composants */
   engineFactoryComponent::kill();

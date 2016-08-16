@@ -13,10 +13,14 @@ void        engineComponentManagerSystem::fillVectorComponent(engineComponent* c
 void 	engineComponentManagerSystem::launch_component(engineComponent *elem)
 {
   std::this_thread::sleep_for(std::chrono::seconds(1));
-  if (this->_state == t_stateComponent::UPDATE)
+  if (this->_state == t_stateComponent::UPDATE) {
+    std::cout << "voici un update" << std::endl;
     elem->update();
-  else if (this->_state == t_stateComponent::INIT)
+  }
+  else if (this->_state == t_stateComponent::INIT) {
+    std::cout << "voici un init" << std::endl;
     elem->init();
+  }
 }
 
 void        engineComponentManagerSystem::updateComponent(t_Entity type, t_stateComponent state)
