@@ -11,17 +11,14 @@ int					main()
   
   auto	menuStart = factoryComponent->buildComponent<componentMenu>();
   auto	sonStart = factoryComponent->buildComponent<componentSound>();
-  auto	map = factoryComponent->buildComponent<componentMap>();
   
 
 
   CpnmtMSystem->fillVectorComponent(sonStart);
   CpnmtMSystem->fillVectorComponent(menuStart);
-  CpnmtMSystem->fillVectorComponent(map);
 
   /* soit on thread l'init ou l'update, l'update sera dans la boucle de jeux */  
-  CpnmtMSystem->updateComponent(t_Entity::ALL, t_stateComponent::INIT);
-  CpnmtMSystem->updateComponent();
+  CpnmtMSystem->updateComponent(t_Entity::ALL, t_stateComponent::INIT); /* INIT */
 
   /* Voir quand delete les composants */
   engineFactoryComponent::kill();

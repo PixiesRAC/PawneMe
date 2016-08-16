@@ -28,21 +28,20 @@ componentMenu::componentMenu()
 
 void componentMenu::init()
 {
-  
   this->_window.setVerticalSyncEnabled(true);
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
   while (this->_window.isOpen())
     {
       // on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
       while (this->_window.pollEvent(this->_event))
-	{
+  	{
 	  this->keyboardMenu();
 	  
 	  // évènement "fermeture demandée" : on ferme la fenêtre
-	  if (this->_event.type == sf::Event::Closed) {
-	    this->_window.close();
-	  }
-	}
+  	  if (this->_event.type == sf::Event::Closed) {
+  	    this->_window.close();
+  	  }
+  	}
       /* evite la charge CPU */
       std::this_thread::sleep_for(std::chrono::nanoseconds(60));
     }
@@ -50,5 +49,7 @@ void componentMenu::init()
 
 void	componentMenu::update()
 {
-  std::cout << "update de menu" << std::endl;
+  while (1) {
+    std::cout << "Je suis dans le component MENU" << std::endl;
+  }
 }

@@ -161,13 +161,14 @@ private :
 
     std::cout << "En attente de l'utilisation d'un thread : " << ++nb << std::endl;    
     _cond_var.wait(uLock,
-		   [this]
-		   {
-		     return (!(this->_QTasks.empty()));
-		   }
-		   );
+    		   [this]
+    		   {
+    		     return (!(this->_QTasks.empty()));
+    		   }
+    		   );
     task = this->_QTasks.front();
     this->_QTasks.pop();
+    uLock.unlock(); /* HO PUTIN DE FDP QUI M'A RENDU OUF, il m'a rendu vraiment ouf pour le trouver lui */
     task();
   }
 };
