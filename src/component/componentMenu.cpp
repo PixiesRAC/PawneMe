@@ -20,15 +20,17 @@ void             componentMenu::keyboardMenu()
 
 componentMenu::componentMenu()
 {
+  /* test  */
   /* LA CREATION DE LA FENETRE DOIT ETRE FAIT DANS LE THREAD PRINCIPAL */
-  this->_window.create(sf::VideoMode(800, 600), "PawneMe");
+  this->_window.create(sf::VideoMode(componentMenu::_Hwindows, componentMenu::_Lwindows), "PawneMe");
   this->_window.setActive(false);
-
 }
 
 void componentMenu::init()
 {
-  this->_window.setVerticalSyncEnabled(true);
+  if ((this->_texture.loadFromFile(componentMenu::_fileTextureMenu)) == true) {
+    this->_sprite.setTexture(this->_texture);
+  }
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
   while (this->_window.isOpen())
     {
@@ -42,6 +44,9 @@ void componentMenu::init()
   	    this->_window.close();
   	  }
   	}
+      //      this->_window.clear(sf::Color::Black);
+      this->_window.draw(this->_sprite);
+      this->_window.display();
       /* evite la charge CPU */
       std::this_thread::sleep_for(std::chrono::nanoseconds(60));
     }

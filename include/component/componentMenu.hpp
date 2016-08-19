@@ -23,13 +23,20 @@ public :
   virtual void update();
 
   virtual void		init(); /* A reflechir pour la signature */
+  
 private :
   
   void		keyboardMenu();
   
+  
+  sf::RenderWindow	_window;
+  sf::Event		_event;
+  sf::Texture		_texture;
+  sf::Sprite		_sprite;
 
-  sf::RenderWindow _window;
-  sf::Event	_event;
+  static constexpr auto	_fileTextureMenu = "./texture/menuStart/Hacker-silhouette.jpg";
+  static constexpr short _Hwindows = 1000;
+  static constexpr short _Lwindows = 664;
 };
 
 #endif /* !COMPONENTMENU_HPP */

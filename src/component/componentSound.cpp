@@ -5,7 +5,7 @@
 
 #include "../../include/component/componentSound.hpp"
 
-componentSound::componentSound()
+componentSound::componentSound() : _soundType(t_SoundType::MENU)
 {
 }
 
@@ -19,15 +19,11 @@ void	componentSound::update()
 void componentSound::init()
 {
   /* test */
-  while (1) {
-    std::cout << "Je suis dans le component thread du  SON" << std::endl;
-    std::cout << "lancement du son" << std::endl;
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("./son/cartoon001.wav");
-    std::cout << buffer.getSampleCount() << std::endl;
-    sf::Sound sound;
-    sound.setBuffer(buffer);
-    sound.play();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+  std::cout << "Init de son" << std::endl;
+  if (this->_soundType == t_SoundType::MENU) {
+    if ((this->_music.openFromFile(componentSound::_fileSoundMenu)) != false) {
+      this->_music.setLoop(true);
+      this->_music.play();
+    }
   }
 }
