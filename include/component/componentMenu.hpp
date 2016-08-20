@@ -28,15 +28,19 @@ private :
   
   void		keyboardMenu();
   
+  /* Faire vector de sprite */
   
   sf::RenderWindow	_window;
   sf::Event		_event;
-  sf::Texture		_texture;
-  sf::Sprite		_sprite;
+  
+  sf::Texture		_texture[2];
+  sf::Sprite		_sprite[2];
+  
+  sf::Image		_img;
 
   static constexpr auto	_fileTextureMenu = "./texture/menuStart/Hacker-silhouette.jpg";
-  static constexpr short _Hwindows = 1000;
-  static constexpr short _Lwindows = 664;
+  static constexpr float _Lwindows = 1000.0;
+  static constexpr float _Hwindows = 664.0;
 };
 
 #endif /* !COMPONENTMENU_HPP */
