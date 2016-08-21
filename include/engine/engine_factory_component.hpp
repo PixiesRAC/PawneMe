@@ -6,6 +6,7 @@
 #include "../component/componentSound.hpp"
 #include "../component/componentMap.hpp"
 #include "../component/componentMenu.hpp"
+#include "../component/componentWindow.hpp"
 
 /** 
  * \namespace nmBuildComponent
@@ -62,6 +63,17 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     componentMap *entite = new componentMap;
     entite->setTypeEntity(t_Entity::MAP);
     std::cout << "New component de MAP : " << std::endl;
+    /* GO INIT */
+    return (entite);
+  }
+
+      /* specialisation de template pour le composant window */
+  template <>
+  componentWindow *buildComponentNm<componentWindow>()
+  {
+    componentWindow *entite = new componentWindow;
+    entite->setTypeEntity(t_Entity::WINDOW);
+    std::cout << "New component de Window : " << std::endl;
     /* GO INIT */
     return (entite);
   }

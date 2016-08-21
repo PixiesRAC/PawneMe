@@ -12,6 +12,7 @@ typedef enum class      e_Entity // (une entité est tout ce qui existe dans le 
   ALL,
     OTHER,
     NOTHING,
+    WINDOW,
     MAP,
     SON,
     PNJ,

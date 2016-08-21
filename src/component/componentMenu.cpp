@@ -4,83 +4,103 @@
 #include "../../include/component/componentMenu.hpp"
 #include <iomanip> /* setPrecision */
 
-void             componentMenu::keyboardMenu()
+componentMenu::componentMenu() : _Cwindow(componentWindow::getWindow())
 {
-  static int x = 0;
-  static int y = 0;
+  /* Permet d'adapter (mettre à l'echelles) la taille du sprites à l'ecran */
+  
+  this->_spriteMenu.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / componentMenu::_LwindowsMenu, sf::VideoMode::getDesktopMode().height / componentMenu::_HwindowsMenu));
 
-  /* test */
+  /* Scale du button, prendra 15% du menu, le calcul c'est juste un pourcentage et ensuite une mise a l'echelle suite au resultat trouver via le pourcentage */
+  
+  this->_spriteButtonPlay.setScale(sf::Vector2f((sf::VideoMode::getDesktopMode().width - (sf::VideoMode::getDesktopMode().width * componentMenu::_PourcentageButton / 100)) / componentMenu::_LwindowsMenuPlay,
+						(sf::VideoMode::getDesktopMode().height - (sf::VideoMode::getDesktopMode().height * componentMenu::_PourcentageButton / 100)) / componentMenu::_HwindowsMenuPlay));
+
+  this->_spriteButtonPlay.setPosition((sf::VideoMode::getDesktopMode().width - (sf::VideoMode::getDesktopMode().width * 75 / 100))
+				      , 0);
+
+  //  this->_buttonArea(this->_spriteButtonPlay.getPosition(), size);
+}
+
+void		 componentMenu::createSprites()
+{
+  if ((this->_textureMenu.loadFromFile(componentMenu::_fileTextureMenu)) == true) {
+    this->_spriteMenu.setTexture(this->_textureMenu);
+  }
+  if ((this->_imgButtonPlay.loadFromFile(componentMenu::_fileTextureMenuPlay)) == true) {
+    this->_imgButtonPlay.createMaskFromColor(sf::Color::Black);
+    this->_textureButtonPlay.loadFromImage(this->_imgButtonPlay);
+    this->_spriteButtonPlay.setTexture(this->_textureButtonPlay);
+  }
+  //  sf::IntRect lol(this->_spriteButtonPlay.getPosition(), sf::Vector2i(200,200));
+  this->_sprites.push_back(this->_spriteMenu);
+  this->_sprites.push_back(this->_spriteButtonPlay);
+}
+
+void		 componentMenu::drawSprites()
+{
+  for (auto &sprite : this->_sprites) {
+    this->_Cwindow.draw(sprite);
+  }
+}
+
+bool		componentMenu::isContainsMySprites(int x, int y) {
+  
+  const short		xStart = this->_spriteButtonPlay.getPosition().x;
+  const short		xEnd = this->_spriteButtonPlay.getPosition().x + (componentMenu::_LwindowsMenuPlay * this->_spriteButtonPlay.getScale().x);
+  const short		yStart = this->_spriteButtonPlay.getPosition().y;
+  const short		yEnd = this->_spriteButtonPlay.getPosition().y + (componentMenu::_HwindowsMenuPlay * this->_spriteButtonPlay.getScale().y);
+  
+  if (x >= xStart && x <= xEnd && y >= yStart && y <= yEnd) {
+    return (true);
+  }
+  return (false);
+}
+
+void             componentMenu::keyboardMouseMenu()
+{
+  //  static int x = 0;
+  //  static int y = 0;
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+      if (this->isContainsMySprites(sf::Mouse::getPosition(this->_Cwindow).x, sf::Mouse::getPosition(this->_Cwindow).y)) {
+	std::cout << "Dans le mille" << std::endl;
+      }
+    }
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-    //    this->_sprite[1].setPosition(sf::Vector2f(x -= 100, y));
     std::cout << "Left" << std::endl;
-    //    std::cout << this->_window.getSize().x << std::endl;
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-    //    this->_sprite[1].setPosition(sf::Vector2f(x += 100, y));
     std::cout << "Right" << std::endl;
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-    //    this->_sprite[1].setPosition(sf::Vector2f(x, y -= 100));
     std::cout << "Up" << std::endl;
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-    //    this->_sprite[1].setPosition(sf::Vector2f(x, y += 100));
     std::cout << "Down" << std::endl;
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
     std::cout << "Quit" << std::endl;
   }
-  this->_window.draw(this->_sprite[1]);
-}
-
-componentMenu::componentMenu()
-{
-  /* test   FAIRE UN COMPOSANT WINDOWS SERAIT MIEUX  ET ENSUITE ENVOYER LE COMPOSANT WINDOW EN TANT QU'ATTRIBUT AU OBJET UTILISANT LA FENETRE*/
-  /* LA CREATION DE LA FENETRE DOIT ETRE FAIT DANS LE THREAD PRINCIPAL */
-  // std::cout << sf::VideoMode::getDesktopMode().width << std::endl;
-  // std::cout << sf::VideoMode::getDesktopMode().height << std::endl;
-  this->_window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "PawneMe", sf::Style::Close);
-  
-
-
-  this->_sprite[0].setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / componentMenu::_Lwindows, sf::VideoMode::getDesktopMode().height / componentMenu::_Hwindows));
-  
-  //    / sf::VideoMode::getDesktopMode().height * 100;
-
-  this->_window.setFramerateLimit(60);
-  //  this->_window.setActive(false);
 }
 
 void componentMenu::init()
 {
-  /* TEST */
-  if ((this->_texture[0].loadFromFile(componentMenu::_fileTextureMenu)) == true) {
-    sf::IntRect r1(0, 0, sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);    
-  this->_sprite[0].setTexture(this->_texture[0]);
-  }
-  //  if ((this->_img.loadFromFile(componentMenu::_fileTextureMenuSelect)) == true) {
-  //    this->_texture[1].loadFromImage(this->_img);
-  //    this->_img.createMaskFromColor(sf::Color::Black);
-  //    this->_texture[1].create(150, 100);
-  //    this->_texture[1].update(this->_img);
-  //    this->_sprite[1].setTexture(this->_texture[1]);
-  //  }
-  this->_window.draw(this->_sprite[0]);
+  
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
-  while (this->_window.isOpen())
+  this->createSprites();
+  this->drawSprites();
+  while (this->_Cwindow.isOpen())
     {
       // on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
-      while (this->_window.pollEvent(this->_event))
-  	{
-	  this->_window.clear();
-	  this->_window.draw(this->_sprite[0]);
-	  this->keyboardMenu();	  
+      while (this->_Cwindow.pollEvent(this->_event))
+	{
+	  this->keyboardMouseMenu();	  
 	  // évènement "fermeture demandée" : on ferme la fenêtre
-  	  if (this->_event.type == sf::Event::Closed) {
-  	    this->_window.close();
-  	  }
-  	}
-      this->_window.display();
+	  if (this->_event.type == sf::Event::Closed) {
+	    this->_Cwindow.close();
+	  }
+	}
+      this->_Cwindow.display();
       /* evite la charge CPU */
       std::this_thread::sleep_for(std::chrono::microseconds(60));
     }

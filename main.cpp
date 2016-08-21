@@ -8,12 +8,14 @@ int					main()
 {
   engineComponentManagerSystem		*CpnmtMSystem = engineComponentManagerSystem::createManager();
   engineFactoryComponent		*factoryComponent = engineFactoryComponent::createFactory();
-  
+
+  auto	window = factoryComponent->buildComponent<componentWindow>();
   auto	menuStart = factoryComponent->buildComponent<componentMenu>();
   auto	menuSound = factoryComponent->buildComponent<componentSound>();
   
 
 
+  CpnmtMSystem->fillVectorComponent(window);
   CpnmtMSystem->fillVectorComponent(menuSound);
   CpnmtMSystem->fillVectorComponent(menuStart);
 
