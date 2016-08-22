@@ -5,7 +5,7 @@
 
 /* static FACTORY INIT */
 engineFactoryComponent *engineFactoryComponent::IsInstanciate = nullptr;
-
+bool			g_menuSelection = false;
 
 int					main()
 {

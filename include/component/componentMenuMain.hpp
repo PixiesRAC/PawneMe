@@ -5,7 +5,6 @@
 #include "../engine/engine_component.hpp"
 #include "../bridge/bridgeToMenuSelection.hpp"
 
-/* Obliger de le faire sois meme ... fucking sfml */
 
 /** 
  * \class componentMenuMain
