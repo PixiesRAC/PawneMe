@@ -21,7 +21,10 @@ class   componentSound : public engineComponent
 public :
   /* les default surement a modifier */
   componentSound();
-  ~componentSound() = default;
+  ~componentSound() {
+    std::cout << "Destruction de componentSound" << std::endl;
+    printf("%p\n", this);
+  };
   componentSound(componentSound&) = default;
   componentSound& operator=(componentSound&) = default;
 

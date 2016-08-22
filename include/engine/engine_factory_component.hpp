@@ -2,11 +2,9 @@
 # define ENGINE_FACTORY_COMPONENT_HPP_
 
 #include <iostream> /* mettre les instruction dans un .cpp */
-#include "./engine_component.hpp"
+#include "../component/componentMenuMain.hpp"
 #include "../component/componentSound.hpp"
 #include "../component/componentMap.hpp"
-#include "../component/componentMenu.hpp"
-#include "../component/componentWindow.hpp"
 
 /** 
  * \namespace nmBuildComponent
@@ -25,58 +23,24 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
    * \return return le component instancié
    */
   template <typename T>
-  T * buildComponentNm()
-  {
-    T *entite = new T;
-    entite->setTypeEntity(t_Entity::OTHER);
-    std::cout << "New component banale : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
+  T * buildComponentNm();
 
     /* specialisation de template pour le composant menu */
   template <>
-  componentMenu *buildComponentNm<componentMenu>()
-  {
-    componentMenu *entite = new componentMenu;
-    entite->setTypeEntity(t_Entity::SON);
-    std::cout << "New component de Menu : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
-  
+  componentMenuMain *buildComponentNm<componentMenuMain>();
+    
   /* specialisation de template pour le composant son */
   template <>
-  componentSound *buildComponentNm<componentSound>()
-  {
-    componentSound *entite = new componentSound;
-    entite->setTypeEntity(t_Entity::SON);
-    std::cout << "New component de SON : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
+  componentSound *buildComponentNm<componentSound>();
 
     /* specialisation de template pour le composant map */
   template <>
-  componentMap *buildComponentNm<componentMap>()
-  {
-    componentMap *entite = new componentMap;
-    entite->setTypeEntity(t_Entity::MAP);
-    std::cout << "New component de MAP : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
-
+  componentMap *buildComponentNm<componentMap>();
+  
       /* specialisation de template pour le composant window */
   template <>
-  componentWindow *buildComponentNm<componentWindow>()
-  {
-    componentWindow *entite = new componentWindow;
-    entite->setTypeEntity(t_Entity::WINDOW);
-    std::cout << "New component de Window : " << std::endl;
-    /* GO INIT */
-    return (entite);
-  }
+  componentWindow *buildComponentNm<componentWindow>();
+
 };
 
 /** 
@@ -136,7 +100,5 @@ private :
   static engineFactoryComponent       *IsInstanciate;
 
 };
-
-engineFactoryComponent *engineFactoryComponent::IsInstanciate = nullptr; 
 
 # endif /* !ENGINE_FACTORY_COMPONENT_HPP_*/

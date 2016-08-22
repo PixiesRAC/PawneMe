@@ -18,12 +18,18 @@ void	componentSound::update()
 
 void componentSound::init()
 {
-  /* test */
-  std::cout << "Init de son" << std::endl;
+  /* background son */
+
+  //  while (1) {
   if (this->_soundType == t_SoundType::MENU) {
     if ((this->_music.openFromFile(componentSound::_fileSoundMenu)) != false) {
       this->_music.setLoop(true);
       this->_music.play();
     }
   }
+  else if (this->_soundType == t_SoundType::GAME) {
+    std::cout << "SON DU JEUX" << std::endl;
+  }
+  //    std::this_thread::sleep_for(std::chrono::microseconds(200));
+  //}
 }

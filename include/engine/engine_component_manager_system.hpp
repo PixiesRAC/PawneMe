@@ -30,7 +30,12 @@ class   engineComponentManagerSystem /* class qui va gerer les entité et call l
 {
   engineComponentManagerSystem() : _ThPool(42) {}
   engineComponentManagerSystem(engineComponentManagerSystem&) = delete;
-  ~engineComponentManagerSystem() = default;
+  ~engineComponentManagerSystem() {
+    _ThPool.stop();
+    for (auto &cmp : this->_vComponent) {
+      delete(cmp);
+    }
+  }
   engineComponentManagerSystem& operator=(engineComponentManagerSystem&) = delete;
   
 public :
@@ -102,7 +107,7 @@ private :
   
   void		launch_component(engineComponent *);
   
-     std::vector<engineComponent*>		_vComponent; /* Liste de  composant */
+  std::vector<engineComponent*>		_vComponent; /* Liste de  composant */
   
   threadPool<std::function<void()>>		_ThPool;
 

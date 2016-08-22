@@ -14,6 +14,8 @@
 
 #include <future>
 
+extern bool g_threadPoolExit;
+
 /* Prend la signature de la tache qu'on devra thread en param, ca sera le update en l'occurence */
 
 /** 
@@ -29,6 +31,11 @@ class	threadPool
 
 public :
 
+  /* test */
+  void	stop() {
+    this->~threadPool();
+  }
+  
   /** 
    * \fn Constructeur threadPool
    * \param unsigned short size Nombre de thread crée
@@ -57,11 +64,13 @@ public :
    */
   
   ~threadPool(){
+    std::cout << "delete de la threadPool" << std::endl;
     for (auto &thread : this->_VThread) {
       if (thread.joinable()) {
 	thread.join();
       }
     }
+    g_threadPoolExit = true;
   };
   
   threadPool(threadPool<TASKSIGN>& copy) = default;

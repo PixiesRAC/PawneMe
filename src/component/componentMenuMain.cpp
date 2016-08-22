@@ -1,33 +1,33 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "../../include/component/componentMenu.hpp"
 #include <iomanip> /* setPrecision */
+#include "../../include/component/componentMenuMain.hpp"
 
-componentMenu::componentMenu() : _Cwindow(componentWindow::getWindow())
+componentMenuMain::componentMenuMain() : _Cwindow(componentWindow::getWindow())
 {
   /* Permet d'adapter (mettre à l'echelles) la taille du sprites à l'ecran */
   
-  this->_spriteMenu.sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / componentMenu::_LwindowsMenu, sf::VideoMode::getDesktopMode().height / componentMenu::_HwindowsMenu));
+  this->_spriteMenu.sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / componentMenuMain::_LwindowsMenu, sf::VideoMode::getDesktopMode().height / componentMenuMain::_HwindowsMenu));
 
   /* Scale du button, prendra 15% du menu, le calcul c'est juste un pourcentage et ensuite une mise a l'echelle suite au resultat trouver via le pourcentage */
   
-  this->_spriteButtonPlay.sprite.setScale(sf::Vector2f((sf::VideoMode::getDesktopMode().width - (sf::VideoMode::getDesktopMode().width * componentMenu::_PourcentageButton / 100)) / componentMenu::_LwindowsMenuPlay,
-						(sf::VideoMode::getDesktopMode().height - (sf::VideoMode::getDesktopMode().height * componentMenu::_PourcentageButton / 100)) / componentMenu::_HwindowsMenuPlay));
+  this->_spriteButtonPlay.sprite.setScale(sf::Vector2f((sf::VideoMode::getDesktopMode().width - (sf::VideoMode::getDesktopMode().width * componentMenuMain::_PourcentageButton / 100)) / componentMenuMain::_LwindowsMenuPlay,
+						(sf::VideoMode::getDesktopMode().height - (sf::VideoMode::getDesktopMode().height * componentMenuMain::_PourcentageButton / 100)) / componentMenuMain::_HwindowsMenuPlay));
 
   this->_spriteButtonPlay.sprite.setPosition((sf::VideoMode::getDesktopMode().width - (sf::VideoMode::getDesktopMode().width * 75 / 100))
 				      , 0);
 }
 
-void		 componentMenu::createSprites()
+void		 componentMenuMain::createSprites()
 {
   /* MENU */
-  if ((this->_textureMenu.loadFromFile(componentMenu::_fileTextureMenu)) == true) {
+  if ((this->_textureMenu.loadFromFile(componentMenuMain::_fileTextureMenu)) == true) {
     this->_spriteMenu.sprite.setTexture(this->_textureMenu);
     this->_spriteMenu.who = t_infoSprite::USELESS;
   }
   /* PLAY */
-  if ((this->_imgButtonPlay.loadFromFile(componentMenu::_fileTextureMenuPlay)) == true) {
+  if ((this->_imgButtonPlay.loadFromFile(componentMenuMain::_fileTextureMenuPlay)) == true) {
     this->_imgButtonPlay.createMaskFromColor(sf::Color::Black);
     this->_textureButtonPlay.loadFromImage(this->_imgButtonPlay);
     this->_spriteButtonPlay.sprite.setTexture(this->_textureButtonPlay);
@@ -40,7 +40,7 @@ void		 componentMenu::createSprites()
   this->fillRect();
 }
 
-void		componentMenu::fillRect() {
+void		componentMenuMain::fillRect() {
   for (auto &sprite : this->_sprites) {
 
     if (sprite.who != t_infoSprite::USELESS) {
@@ -48,36 +48,33 @@ void		componentMenu::fillRect() {
     
       RectCoorSprite.rectLeft = sprite.sprite.getPosition().x;
       RectCoorSprite.rectTop = sprite.sprite.getPosition().y;
-      RectCoorSprite.rectWidth = sprite.sprite.getPosition().x + (componentMenu::_LwindowsMenuPlay * sprite.sprite.getScale().x);
-      RectCoorSprite.rectHeight = sprite.sprite.getPosition().y + (componentMenu::_HwindowsMenuPlay * sprite.sprite.getScale().y);
+      RectCoorSprite.rectWidth = sprite.sprite.getPosition().x + (componentMenuMain::_LwindowsMenuPlay * sprite.sprite.getScale().x);
+      RectCoorSprite.rectHeight = sprite.sprite.getPosition().y + (componentMenuMain::_HwindowsMenuPlay * sprite.sprite.getScale().y);
       RectCoorSprite.who = sprite.who;
       this->_vCoorSprites.push_back(RectCoorSprite);
     }
   }
 }
   
-void		 componentMenu::drawSprites()
+void		 componentMenuMain::drawSprites()
 {
   for (auto &sprite : this->_sprites) {
     this->_Cwindow.draw(sprite.sprite);
   }
 }
 
-bool		componentMenu::isContainsMySprites(int x, int y) {
+bool		componentMenuMain::isContainsMySprites(int x, int y) {
 
   for (auto &rect : this->_vCoorSprites) {
     if (x >= rect.rectLeft && x <= rect.rectWidth && y >= rect.rectTop && y <= rect.rectHeight) {
-      if (rect.who == t_infoSprite::PLAY) { /* Go faire une map, c'est mieux je pense */
-	std::cout << "On vient de detecter que le joueur veut jouer" << std::endl;
-	/* GO JOUER */
-      }
+      bridgeToMenuSelection bridgeSelectition(rect.who);
       return (true);
     }
   }
   return (false);
 }
 
-void             componentMenu::keyboardMouseMenu()
+void             componentMenuMain::keyboardMouseMenu()
 {
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -99,10 +96,11 @@ void             componentMenu::keyboardMouseMenu()
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
     std::cout << "Quit" << std::endl;
+    this->_Cwindow.close();
   }
 }
 
-void componentMenu::init()
+void componentMenuMain::init()
 {
   
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
@@ -125,7 +123,7 @@ void componentMenu::init()
     }
 }
 
-void	componentMenu::update()
+void	componentMenuMain::update()
 {
   while (1) {
     std::cout << "Je suis dans le component MENU" << std::endl;

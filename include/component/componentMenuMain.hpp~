@@ -1,7 +1,11 @@
-#ifndef COMPONENTMENU_HPP_
-# define COMPONENTMENU_HPP_
+#ifndef COMPONENTMENUMAIN_HPP_
+# define COMPONENTMENUMAIN_HPP_
 
+#include "../engine/engine_component.hpp"
 #include "../component/componentWindow.hpp"
+
+
+/* Obliger de le faire sois meme ... fucking sfml */
 
 /** 
  * \enum e_infoSprite
@@ -44,27 +48,34 @@ typedef struct	s_InfSprite
   t_infoSprite	who;
 }		t_InfSprite;
 
-
 /** 
  * \class componentMenu
- * \brief Class abstraite component du menu
+ * \brief Class component du menu
  * \author pixies
  */
 
-class	componentMenu
+class   componentMenuMain : public engineComponent
 {
-public : 
-  virtual ~componentMenu() = default;
+public :
+  /* les default surement a modifier */
+  componentMenuMain();
+  ~componentMenuMain() = default;
+  componentMenuMain(componentMenuMain&) = default;
+  componentMenuMain& operator=(componentMenuMain&) = default;
 
-protected :
+  virtual void update();
+
+  virtual void init(); /* A reflechir pour la signature */
+  
+private :
 
   /** 
-   * \fn createSprites
-   * \brief Crée les sprites et les push dans le vector de sprites
-   * \author pixies
-   */
+ * \fn createSprites
+ * \brief Crée les sprites et les push dans le vector de sprites
+ * \author pixies
+ */
 
-  virtual   void		createSprites() = 0;
+  void		createSprites();
 
   
   /** 
@@ -73,7 +84,7 @@ protected :
  * \author pixies
  */
 
-  virtual   void		fillRect() = 0;
+  void		fillRect();
 
   /** 
  * \fn drawSprites
@@ -81,7 +92,7 @@ protected :
  * \author pixies
  */
   
-  virtual void		drawSprites() = 0;
+  void		drawSprites();
 
 
   /** 
@@ -90,7 +101,7 @@ protected :
  * \author pixies
  */
   
-  virtual void		keyboardMouseMenu() = 0;
+  void		keyboardMouseMenu();
 
   /** 
  * \fn isContainMySprites
@@ -100,8 +111,11 @@ protected :
  * \author pixies
  */
 
-  virtual  bool		isContainsMySprites(int x , int y) = 0;
+  bool		isContainsMySprites(int x , int y);
 
+  /* Get window from componentWindow STATIC */
+  
+  sf::RenderWindow&		_Cwindow;
 
   /* Event */
   
@@ -112,7 +126,39 @@ protected :
 
   /* vector de rectangle de sprite */
   std::vector<e_RectCoorSprite>	_vCoorSprites;
+  
+  sf::Texture			_textureMenu;
+  t_InfSprite			_spriteMenu;
 
+  /* A voir si on garde cette methode pour les texture */
+
+  /* Necessaire pour avoir la transparence PUTIN DE SFML*/
+  
+  sf::Image			_imgButtonPlay;
+
+  /* http://www.sfml-dev.org/tutorials/2.4/graphics-sprite-fr.php le moin de texture possible A VOIR */
+  /* http://www.sfml-dev.org/documentation/2.4.0-fr/classsf_1_1Texture.php */
+  sf::Texture			_textureButtonPlay;
+  t_InfSprite			_spriteButtonPlay;
+
+  sf::IntRect			_buttonArea;
+
+  /* Le button prendra 15% de la taille de l'ecran */
+  
+  static constexpr float _PourcentageButton = 85.0;
+  
+  /* INFO/SIZE DU MENU */
+  
+  static constexpr const auto& _fileTextureMenu = "./texture/menuStart/Hacker-silhouette.jpg";
+  static constexpr float _LwindowsMenu = 1000.0;
+  static constexpr float _HwindowsMenu = 664.0;
+
+  /* INFO/SIZE DES BOUTONS DU MENU */
+
+  static constexpr const auto& _fileTextureMenuPlay = "./texture/menuStart/playMenu.png";
+  static constexpr float _LwindowsMenuPlay = 67.0;
+  static constexpr float _HwindowsMenuPlay = 43.0;
+  
 };
 
-#endif /* !COMPONENTMENU_HPP_ */
+#endif /* !COMPONENTMENUMAIN_HPP */
