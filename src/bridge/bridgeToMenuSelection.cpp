@@ -1,6 +1,6 @@
 #include "../../include/bridge/bridgeToMenuSelection.hpp"
-#include "../../include/engine/engine_factory_component.hpp"
-#include "../../include/engine/engine_component_manager_system.hpp"
+//#include "../../include/engine/engine_factory_component.hpp"
+//#include "../../include/engine/engine_component_manager_system.hpp"
 
 extern bool	g_menuSelection;
 
@@ -26,10 +26,6 @@ void	bridgeToMenuSelection::bridgePlay()
 {
   /* DEMARRER LE JEUX */
   std::cout << "Vous avez choisis PLAY" << std::endl;
-  this->_Cwindow.clear(); /* Simulation d'un autre affichage de menu */
-  std::this_thread::sleep_for(std::chrono::seconds(2));
-  //  this-> /* Simulation d'un autre affichage de menu */
-
-  /* EN ATTENDANT */
+  this->_Cwindow.close();
   g_menuSelection = true;
 }

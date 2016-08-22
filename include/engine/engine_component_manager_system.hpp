@@ -31,7 +31,6 @@ class   engineComponentManagerSystem /* class qui va gerer les entité et call l
   engineComponentManagerSystem() : _ThPool(42) {}
   engineComponentManagerSystem(engineComponentManagerSystem&) = delete;
   ~engineComponentManagerSystem() {
-    _ThPool.stop();
     for (auto &cmp : this->_vComponent) {
       delete(cmp);
     }

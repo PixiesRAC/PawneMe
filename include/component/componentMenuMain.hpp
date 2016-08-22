@@ -19,7 +19,7 @@ public :
   /* les default surement a modifier */
   componentMenuMain();
   virtual ~componentMenuMain() {
-    std::cout << "Destruction de ComponentMenuMain" << std::endl;
+    std::cout << "-DESTRUCTEUR de ComponentMenuMain" << std::endl;
     printf("%p\n", this);
   }
   componentMenuMain(componentMenuMain&) = delete;

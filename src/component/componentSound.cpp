@@ -7,6 +7,7 @@
 
 componentSound::componentSound() : _soundType(t_SoundType::MENU)
 {
+  std::cout << "-CONSTRUCTEUR de componentSound" << std::endl;
 }
 
 void	componentSound::update()
@@ -20,7 +21,7 @@ void componentSound::init()
 {
   /* background son */
 
-  //  while (1) {
+  std::cout << "-Init de componentSound" << std::endl;
   if (this->_soundType == t_SoundType::MENU) {
     if ((this->_music.openFromFile(componentSound::_fileSoundMenu)) != false) {
       this->_music.setLoop(true);

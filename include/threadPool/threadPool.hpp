@@ -14,8 +14,6 @@
 
 #include <future>
 
-extern bool g_threadPoolExit;
-
 /* Prend la signature de la tache qu'on devra thread en param, ca sera le update en l'occurence */
 
 /** 
@@ -43,7 +41,7 @@ public :
    *	par le parametre
    */
   
-  threadPool(unsigned short size) : _size(size) {
+  threadPool(unsigned short size) : _size(size), _stop(false) {
     std::cout << "Creation d'une thread pool de :" << size << " " << std::endl;
     this->init(size);
   };
@@ -64,13 +62,15 @@ public :
    */
   
   ~threadPool(){
-    std::cout << "delete de la threadPool" << std::endl;
+    
+    this->_stop = true;
+    this->_cond_var.notify_all();
     for (auto &thread : this->_VThread) {
       if (thread.joinable()) {
-	thread.join();
+    	thread.join();
       }
     }
-    g_threadPoolExit = true;
+    std::cout << "TOUT LES THREADS SONT JOIN"  << std::endl;
   };
   
   threadPool(threadPool<TASKSIGN>& copy) = default;
@@ -108,7 +108,6 @@ public :
     
     /* A VERIFIER vector.capacity() si il ne depasse pas vector.max_size() Si c'est le cas plusieur possibilité de tte maniere une exeception sera lancer, DONC Soit utilisé un vector de vector qui va remplir tout les vectors de thread (solution la - compliqué et qui fonctionne bien) , Soit faire une sorte de redemarage du jeux (cancereux), soit faire en sorte de reduire la taille du vector que l'on utilise, pour ce faire il faudra check quel case du vector (thread) et encore en cour (je sais pas faire) */
     
-    std::cout << "Reload de la thread pool de :" << size << " " << std::endl;
     this->init(size);
   }
   
@@ -154,7 +153,7 @@ private :
 
   std::mutex				_mutex;
 
-
+  bool					_stop;
   
   /**
    * \fn fctThread
@@ -172,13 +171,22 @@ private :
     _cond_var.wait(uLock,
     		   [this]
     		   {
-    		     return (!(this->_QTasks.empty()));
+    		     return (!(this->_QTasks.empty()) || this->_stop);
     		   }
     		   );
+    if (this->_stop == true) {
+      std::cout << "J'ai recu le signal stop venant du destucteur de la threadPool" << std::endl;
+      return ;
+    }
     task = this->_QTasks.front();
     this->_QTasks.pop();
     uLock.unlock(); /* HO PUTIN DE FDP QUI M'A RENDU OUF, il m'a rendu vraiment ouf pour le trouver lui */
-    task();
+    try {
+      task();
+    }
+    catch ( const std::exception & e ) {
+      std::cout << "CATCH EXCEPTION" << e.what() << std::endl;
+    }
   }
 };
 

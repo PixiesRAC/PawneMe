@@ -3,9 +3,11 @@
 #include <thread>
 #include <iomanip> /* setPrecision */
 #include "../../include/component/componentMenuMain.hpp"
+#include "../../include/engine/engine_factory_component.hpp"
 
 componentMenuMain::componentMenuMain() : _Cwindow(componentWindow::getWindow())
 {
+  std::cout << "-CONSTRUCTEUR DE componentMenuMain" << std::endl;
   /* Permet d'adapter (mettre à l'echelles) la taille du sprites à l'ecran */
   
   this->_spriteMenu.sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / componentMenuMain::_LwindowsMenu, sf::VideoMode::getDesktopMode().height / componentMenuMain::_HwindowsMenu));
@@ -79,7 +81,6 @@ void             componentMenuMain::keyboardMouseMenu()
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
       if (this->isContainsMySprites(sf::Mouse::getPosition(this->_Cwindow).x, sf::Mouse::getPosition(this->_Cwindow).y)) {
-	std::cout << "Dans le mille" << std::endl;
       }
     }
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -104,6 +105,12 @@ void componentMenuMain::init()
 {
   
   // on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
+  engineFactoryComponent		*factoryComponent = engineFactoryComponent::createFactory();
+
+  /* REF smart_ptr */
+  auto	backgroundSound = std::unique_ptr<componentSound>(factoryComponent->buildComponent<componentSound>());
+  
+  backgroundSound.get()->init();
   this->createSprites();
   this->drawSprites();
   while (this->_Cwindow.isOpen())

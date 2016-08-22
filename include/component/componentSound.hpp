@@ -22,10 +22,16 @@ public :
   /* les default surement a modifier */
   componentSound();
   ~componentSound() {
-    std::cout << "Destruction de componentSound" << std::endl;
+    std::cout << "-DESTRUCTEUR de componentSound" << std::endl;
     printf("%p\n", this);
   };
   componentSound(componentSound&) = default;
+  componentSound(componentSound* other) {
+    if (this != other) {
+      other = new componentSound;
+    }
+    printf("%p\n %p\n", this, other);
+  }
   componentSound& operator=(componentSound&) = default;
 
   virtual void update();

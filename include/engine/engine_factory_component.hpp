@@ -1,6 +1,7 @@
 #ifndef ENGINE_FACTORY_COMPONENT_HPP_
 # define ENGINE_FACTORY_COMPONENT_HPP_
 
+#include <memory>
 #include <iostream> /* mettre les instruction dans un .cpp */
 #include "../component/componentMenuMain.hpp"
 #include "../component/componentSound.hpp"
@@ -91,7 +92,7 @@ public :
    *
    */
   template <typename T>
-  T *  buildComponent() const
+  T*  buildComponent() const
   {
     return (nmBuildComponent::buildComponentNm<T>()); /* appel du namespace */
   }

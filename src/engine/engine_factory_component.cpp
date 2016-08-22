@@ -9,7 +9,7 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
    * \return return le component instancié
    */
   template <typename T>
-  T * buildComponentNm()
+  T*  buildComponentNm()
   {
     T *entite = new T;
     entite->setTypeEntity(t_Entity::OTHER);
@@ -53,9 +53,9 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
 
       /* specialisation de template pour le composant window */
   template <>
-  componentWindow *buildComponentNm<componentWindow>()
+  componentWindow* buildComponentNm<componentWindow>()
   {
-    componentWindow *entite = new componentWindow;
+    componentWindow *entite  = new componentWindow;
     entite->setTypeEntity(t_Entity::WINDOW);
     std::cout << "New component de Window : " << std::endl;
     /* GO INIT */
