@@ -104,9 +104,9 @@ void tileset::createMap() {
   mapVertex[BRICK] = quad;
 }
 
-void tileset::generateMap(const sf::Vector2u &vSizeTile) {
+void tileset::generateMap(const sf::Vector2u &vSizeTile) { // SINON AU LIEU DE FAIRE UN X_SIZE_MAP ET UN Y_SIZE_MAP, GO FAIRE UN DOUBLE ARRAY DIRECTEMENT 
 
-  int	pos_map = 0; /* compteur pour l'indexation de la map */
+  int	pos_map = 0; /* compteur pour l'indexation de la map */ // USELESS YA MIEU ENFAIT GO DOUBLE ARRAY
   
   for (int y = 0; y <= y_size_map; ++y) { /* LARGEUR */
     for (int x = 0; x <= x_size_map; ++x) { /* LONGUEUR */
