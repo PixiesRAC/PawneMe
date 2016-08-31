@@ -5,8 +5,6 @@ sf::RenderWindow	componentWindow::_window;
 
 componentWindow::componentWindow()
 {
-  componentWindow::_window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "PawneMe", sf::Style::Close);
-  componentWindow::_window.setFramerateLimit(60);
   std::cout << "-CONSTRUCTEUR de window" << std::endl;
 }
 
@@ -23,6 +21,8 @@ void	componentWindow::update()
 
 void	componentWindow::init()
 {
+  componentWindow::_window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "PawneMe", sf::Style::Close);
+  componentWindow::_window.setFramerateLimit(60);
   std::cout << "-INIT Init de componentWindow" << std::endl;
 }
 

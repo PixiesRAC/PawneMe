@@ -22,9 +22,9 @@ public :
   componentWindow(componentWindow&) = default;
   componentWindow& operator=(componentWindow&) = default;
 
-  virtual void update();
+  virtual void update() override final;
 
-  virtual void init();
+  virtual void init() override final;
 
   static  sf::RenderWindow&	getWindow() {
     return (componentWindow::_window);

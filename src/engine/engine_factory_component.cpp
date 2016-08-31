@@ -6,6 +6,7 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
   /**
    * \fn  buildComponentNm() fonction membre template pour crée 
    *	un component (specialisation de template pour chaque entity)
+   * A faire en sorte qu'il renvoie un unique_ptr (ce n'est pas le cas)
    * \return return le component instancié
    */
   template <typename T>

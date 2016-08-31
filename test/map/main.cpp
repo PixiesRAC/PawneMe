@@ -74,7 +74,6 @@ public :
 };
 
 void tileset::createMap() {
-  /* MAP DE 4 SUR 6 */
   
   this->x_size_map = 3;
   this->y_size_map = 5; /* bien evidement lorsque l'on multiplie les deux nombre(+1 a chaque nombre, psk on commence a compter a 0 sur la map et non à 1) on obtient la taille de la map */

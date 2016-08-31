@@ -24,9 +24,9 @@ public :
   componentMenuMain(componentMenuMain&) = delete;
   componentMenuMain& operator=(componentMenuMain&) = delete;
 
-  virtual void update();
+  virtual void update() override final;
 
-  virtual void init(); /* A reflechir pour la signature */
+  virtual void init() override final; /* A reflechir pour la signature */
   
 private :
 

@@ -34,9 +34,9 @@ public :
   }
   componentSound& operator=(componentSound&) = default;
 
-  virtual void update();
+  virtual void update() override final;
 
-  virtual void init();
+  virtual void init() override final;
 
   t_SoundType	_soundType;
 
