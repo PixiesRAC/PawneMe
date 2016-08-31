@@ -2,7 +2,8 @@
 
 namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et specialiser ses functions  ref => http://stackoverflow.com/questions/3052579/explicit-specialization-in-non-namespace-scope*/
 {
-
+  // GO FAIRE TEMPLATE VARIADIQUE ???? */
+  
   /**
    * \fn  buildComponentNm() fonction membre template pour crée 
    *	un component (specialisation de template pour chaque entity)
@@ -19,7 +20,18 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     return (entite);
   }
 
-    /* specialisation de template pour le composant menu */
+  /* specialisation de template pour le composant gaming */
+  template <>
+  componentGaming *buildComponentNm<componentGaming>()
+  {
+    componentGaming *entite = new componentGaming;
+    entite->setTypeEntity(t_Entity::GAME);
+    std::cout << "New component de gaming : " << std::endl;
+    /* GO INIT */
+    return (entite);
+  }
+  
+  /* specialisation de template pour le composant menu */
   template <>
   componentMenuMain *buildComponentNm<componentMenuMain>()
   {
@@ -41,7 +53,7 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     return (entite);
   }
 
-    /* specialisation de template pour le composant map */
+  /* specialisation de template pour le composant map */
   template <>
   componentMap *buildComponentNm<componentMap>()
   {
@@ -52,7 +64,7 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
     return (entite);
   }
 
-      /* specialisation de template pour le composant window */
+  /* specialisation de template pour le composant window */
   template <>
   componentWindow* buildComponentNm<componentWindow>()
   {

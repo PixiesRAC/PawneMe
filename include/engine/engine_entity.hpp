@@ -19,6 +19,7 @@ typedef enum class      e_Entity // (une entité est tout ce qui existe dans le 
     HERO,
     MENU,
     KEYKOARD,
+    GAME
     }                   t_Entity;
 
 #endif /* !ENGINE_ENTITY_HPP_ */

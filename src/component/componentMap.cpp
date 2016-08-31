@@ -45,15 +45,18 @@ bool componentMap::loadTileset(const std::string &&file) {
 
 void  componentMap::createMap() {
   
-  this->x_size_map = 3;
-  this->y_size_map = 5; /* bien evidement lorsque l'on multiplie les deux nombre(+1 a chaque nombre, psk on commence a compter a 0 sur la map et non à 1) on obtient la taille de la map */
-                        // 1   2     3       4
-  this->arrayMap = { {BRICK, GRASS, BRICK, GRASS, //1
-		      BRICK, GRASS, BRICK, GRASS,// 2
-  		      BRICK, GRASS, BRICK, GRASS, // 3
-  		      BRICK, GRASS, BRICK, GRASS, // 4
-		      BRICK, GRASS, BRICK, GRASS, // 5
-      		      BRICK, GRASS, GRASS, BRICK} }; // 6
+  this->x_size_map = 7;
+  this->y_size_map = 8; /* bien evidement lorsque l'on multiplie les deux nombre(+1 a chaque nombre, psk on commence a compter a 0 sur la map et non à 1) on obtient la taille de la map */
+                        // 1   2     3       4      5       6     7       8
+  this->arrayMap = { {BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, //1
+		      BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, BRICK, GRASS,// 2
+  		      BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, BRICK, GRASS,// 3
+  		      BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, BRICK, GRASS,// 4
+		      BRICK, GRASS, BRICK, GRASS, BRICK, GRASS, BRICK, GRASS,// 5
+      		      BRICK, GRASS, GRASS, BRICK, BRICK, GRASS, BRICK, GRASS,// 6
+		      BRICK, GRASS, GRASS, BRICK, BRICK, GRASS, BRICK, GRASS,// 7
+		      BRICK, GRASS, GRASS, BRICK, BRICK, GRASS, BRICK, GRASS,// 8
+		      BRICK, GRASS, GRASS, BRICK, BRICK, GRASS, BRICK, GRASS   } }; // 9
 
 
   /* POSITION DE LHERBE DANS LE TILESET */

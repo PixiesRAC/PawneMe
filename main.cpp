@@ -5,6 +5,7 @@
 
 /* static FACTORY INIT 
 La factory ne renvoie pas de unique_ptr, elle le devrait ! */
+/* Lel enfait la sfml utilise deja ses propre thread donnnc bon */
 
 engineFactoryComponent *engineFactoryComponent::IsInstanciate = nullptr;
 bool			g_menuSelection = false;

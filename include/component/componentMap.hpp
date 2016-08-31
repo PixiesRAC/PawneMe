@@ -70,9 +70,9 @@ private :
 
     /* taille de la map global (nombre de sprite), surement a changer, a voir avec js comment on va gerer les map */
   
-  static constexpr  int  sizeMap = 24;
+  static constexpr  int  sizeMap = 72;
 
-  static /* constexpr*/  const std::string fileTileset;
+  static /* constexpr*/  const std::string fileTileset; /* go faire un static constexpr auto si possible*/
   /* taille de la map en x (nombre de sprite) */
   int   x_size_map;
 

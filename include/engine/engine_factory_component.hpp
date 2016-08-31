@@ -6,6 +6,7 @@
 #include "../component/componentMenuMain.hpp"
 #include "../component/componentSound.hpp"
 #include "../component/componentMap.hpp"
+#include "../component/componentGaming.hpp"
 
 /** 
  * \namespace nmBuildComponent
@@ -26,6 +27,10 @@ namespace nmBuildComponent /* Necessite un namespace pour pouvoir templater et s
   template <typename T>
   T * buildComponentNm();
 
+      /* specialisation de template pour le composant Gaming */
+  template <>
+  componentGaming *buildComponentNm<componentGaming>();
+  
     /* specialisation de template pour le composant menu */
   template <>
   componentMenuMain *buildComponentNm<componentMenuMain>();

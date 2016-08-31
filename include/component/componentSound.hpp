@@ -26,12 +26,6 @@ public :
     printf("%p\n", this);
   };
   componentSound(componentSound&) = default;
-  componentSound(componentSound* other) {
-    if (this != other) {
-      other = new componentSound;
-    }
-    printf("%p\n %p\n", this, other);
-  }
   componentSound& operator=(componentSound&) = default;
 
   virtual void update() override final;
