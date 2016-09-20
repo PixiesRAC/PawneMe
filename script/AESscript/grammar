@@ -1,0 +1,7 @@
+#
+# Mowgli
+#
+ # Grammar for pawnProject
+
+ Componant ::= BRICK | GRASS | METAL
+ 
