@@ -1,0 +1,50 @@
+#include <functional>
+#include <iostream>
+#include <string>
+#include <type_traits>
+
+class	base
+{
+
+};
+
+class	subBaseA
+{
+public :
+  subBaseA(int a, std::string n) :
+    _a(a),
+    _n(n)
+  {};
+
+  int		_a;
+  std::string	_n;
+};
+
+
+class	subBaseB
+{
+public :
+  subBaseB(bool	b) :
+    _b(b)
+  {};
+
+  bool _b;
+};
+
+template <typename Type>
+class	factory
+{
+public :
+  template <typename ...Args>
+  static inline Type *create(Args ...args) {
+    Type *_type = new Type(args...);
+    return (_type);
+  }
+  };
+  
+int	main()
+{
+  
+  subBaseA *base = factory<subBaseA>::create<int>(42);
+  return (0);
+}

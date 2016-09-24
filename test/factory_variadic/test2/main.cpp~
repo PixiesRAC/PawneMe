@@ -1,0 +1,24 @@
+#include <iostream>
+#include <string>
+#include <stdio.h>
+
+template <int First, int End> struct SwitchKey : public SwitchKey<First + 1, End>
+{
+  //  static void done() {
+  //    std::cout << First << std::endl;
+  //    SwitchKey<First + 1, End>::done();
+  //  }
+};
+
+template <int N> struct SwitchKey<N, N>
+{
+  //  static void done() {
+  //    std::cout << "LAST : " << N << std::endl;
+  //  }
+};
+
+int	main()
+{
+  SwitchKey<1, 15>;
+  return (0);
+}
