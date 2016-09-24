@@ -38,6 +38,7 @@ int					main()
   /* Creation du jeux */
   window->init(); /* reforme de la fenetre */
   auto	gameMap = std::unique_ptr<componentMap>(factoryComponent->buildComponent<componentMap>());
+  /* THACH_B FAIRE UNE FONCTION QUI PREND COMPONENTMAP EN PARAMETRE POUR POUVOIR LUTILISER DANS LA CLASSE, je merge la nouvelle factory plus tard */
   /* surement faire un composant game qui prend un componentMap en param de son init */
   /* boucle de jeux */
   while (gameMap.get()->_Cwindow.isOpen())
