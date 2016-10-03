@@ -1,0 +1,18 @@
+#
+# ReadMe
+#
+
+see grammar file for modify values
+
+
+./aesCrypt.rb map-pawn.map
+
+--> will create a directory with .s and key
+
+./mapGenerator.rb grammar 42 42
+
+--> will create .map with the grammar in first argv + size x and y
+
+
+
+

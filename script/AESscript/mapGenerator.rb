@@ -60,40 +60,46 @@ class MapGenerator
     def fill()
         file = File.new("#{@_fileOut}.map" ,"w")
         file.write("#{@_x}x#{@_y}\n")
-        i = 0
+        j = 0
         arrayTmp = []
-        while (i != @_x)
-            randComp = @_grammar[Random.new_seed % @_grammar.length]
-            arrayTmp.push(randComp)
-            puts("===========> #{randComp} -- #{i} - #{@_x}")
-            i = i + 1
-        end
-        arrayTmp = self.orderArray(arrayTmp)
-        i = 0
-        while (arrayTmp[i] != nil)
-            file.write(arrayTmp[i])
-            if (arrayTmp[i + 1] != nil)
-                file.write(" ")
+        
+        while (j != @_y) 
+            i = 0
+            arrayTmp.clear
+            while (i != @_x)
+                randComp = @_grammar[Random.new_seed % @_grammar.length]
+                arrayTmp.push(randComp)
+                puts("===========> #{randComp} -- #{i} - #{@_x}")
+                i = i + 1
             end
+            arrayTmp = self.orderArray(arrayTmp)
+            i = 0
+            while (arrayTmp[i] != nil)
+                file.write(arrayTmp[i])
+                if (arrayTmp[i + 1] != nil)
+                    file.write(" ")
+                end
             i = i + 1
-        end
-        file.write("\n")
-        while (i != @_y)
-            randComp = @_grammar[Random.new_seed % @_grammar.length]
-            arrayTmp.push(randComp)
-            puts("===========> #{randComp} -- #{i} - #{@_y}")
-            i = i + 1
-        end
-        arrayTmp = self.orderArray(arrayTmp)
-        i = 0
-        while (arrayTmp[i] != nil)
-            file.write(arrayTmp[i])
-            if (arrayTmp[i + 1] != nil)
-                file.write(" ")
             end
-            i = i + 1
+            file.write("\n")
+            j = j + 1
         end
-        file.write("\n")
+        
+        #while (i != @_y)
+        #    randComp = @_grammar[Random.new_seed % @_grammar.length]
+        #    arrayTmp.push(randComp)
+        #    puts("===========> #{randComp} -- #{i} - #{@_y}")
+        #    i = i + 1
+        #end
+        #arrayTmp = self.orderArray(arrayTmp)
+        #i = 0
+        #while (arrayTmp[i] != nil)
+        #    file.write(arrayTmp[i])
+        #    if (arrayTmp[i + 1] != nil)
+            #    file.write(" ")
+            #end
+            #i = i + 1
+        #file.write("\n")
     end
 end
 
