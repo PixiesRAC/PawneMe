@@ -1,0 +1,133 @@
+[?1049h[?12;25h[?1h=[48;1H[?25l----:---F1  [1m*scratch*   [0m   All L1     (Fundamental)--------------------------------------------------------------------------------------------------------------
+[A[H[?12l[?25h[?12;25h[H[2J[49d[?25lLoading encoded-kb...[K[H[?12l[?25h[?12;25h[49;22H[?25ldone[H[?12l[?25h[?12;25h[49d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[H[2J[49d[K[?1l>[?12l[?25h[?1049l[39;49m[?1049h[?12;25h[?1h=[49;1H[?25lLoading /Users/mowgli/.std.el (source)...[K[H
+[?12l[?25h[?12;25h[49;42H[?25ldone[H
+[?12l[?25h[?12;25h[49;27H[?25l_comment.el (source)...[H
+[?12l[?25h[?12;25h[49;50H[?25ldone[H
+[?12l[?25h[?12;25h[49d[?25lFor information about the GNU Project and its goals, type <f1> C-p.[H
+[?12l[?25h[?12;25h[49d[?25l(New file)[K[H
+[?12l[?25h[?12;25h[49d[?25lLoading image...[H
+[?12l[?25h[?12;25h[49;17H[?25ldone[H
+[?12l[?25h[?12;25h[49d[?25l(New file)[K[H
+[?12l[?25h[?12;25h[25d[2d[25d[2d[25d[49d[?25l(New file)[K[H[4m[30m[48;5;250mCRM[0m[39;49m[4m[30m[48;5;250m Buffer                Size  Mode              File                                                                                                           [0m[39;49m
+[A
+.   [1mGRASS,[0m                   0  Fundamental       ~/Projects/PawneMe/GRASS,[K
+    [1mBRICK,[0m                   0  Fundamental       ~/Projects/PawneMe/BRICK,[K
+    [1m{BRICK,[0m                  0  Fundamental       ~/Projects/PawneMe/{BRICK,[K
+    [1m{[0m                        0  Fundamental       ~/Projects/PawneMe/{[K
+    [1m=[0m                        0  Fundamental       ~/Projects/PawneMe/=[K
+    [1mthis-[0m                    0  Fundamental       ~/Projects/PawneMe/this-[K
+    [1m.cpp:[0m                    0  Fundamental       ~/Projects/PawneMe/.cpp:[K
+    [1m*scratch*[0m                0  Lisp Interaction[K
+  * [1m*Messages*[0m             354  Fundamental[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[38;5;236m[47m-uuu:%%-F1  [0m[39;49m[1m[38;5;236m[47m*Buffer List*[0m[39;49m[38;5;236m[47m   All L1     (Buffer Menu)-------------------------------------------------------------------------------------------------------------[0m[39;49m
+[A
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[30m[48;5;250m-uuu:---F1  [39;49m[1m[30m[48;5;250mGRASS,      [0m[39;49m[30m[48;5;250m   All L1     (Fundamental)--------------------------------------------------------------------------------------------------------------[39;49m
+[A[25d[?12l[?25h[?12;25h[49d[K[25d[49d[?25lC-c[25;1H[?12l[?25h[?12;25h[49;4H[?25l-[25;1H[?12l[?25h[?12;25h[49;4H[?25l C-c[25;1H[?12l[?25h[?12;25h[49d[?25lLoading compile...[25;1H[?12l[?25h[?12;25h[49;19H[?25ldone[25;1H[?12l[?25h[?12;25h[49d[?25l[38;5;20mCompile command: [39;49mmake -k[K[H[4m[30m[48;5;250mCRM[0m[39;49m[4m[30m[48;5;250m Buffer                Size  Mode              File                                                                                                           [0m[39;49m
+[A
+.   [1mGRASS,[0m                   0  Fundamental       ~/Projects/PawneMe/GRASS,[K
+    [1mBRICK,[0m                   0  Fundamental       ~/Projects/PawneMe/BRICK,[K
+    [1m{BRICK,[0m                  0  Fundamental       ~/Projects/PawneMe/{BRICK,[K
+    [1m{[0m                        0  Fundamental       ~/Projects/PawneMe/{[K
+    [1m=[0m                        0  Fundamental       ~/Projects/PawneMe/=[K
+    [1mthis-[0m                    0  Fundamental       ~/Projects/PawneMe/this-[K
+    [1m.cpp:[0m                    0  Fundamental       ~/Projects/PawneMe/.cpp:[K
+    [1m*scratch*[0m                0  Lisp Interaction[K
+  * [1m*Messages*[0m             354  Fundamental[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[38;5;236m[47m-uuu:%%-F1  [0m[39;49m[1m[38;5;236m[47m*Buffer List*[0m[39;49m[38;5;236m[47m   All L1     (Buffer Menu)-------------------------------------------------------------------------------------------------------------[0m[39;49m
+[A
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[30m[48;5;250m-uuu:---F1  [39;49m[1m[30m[48;5;250mGRASS,      [0m[39;49m[30m[48;5;250m   All L1     (Fundamental)--------------------------------------------------------------------------------------------------------------[39;49m
+[A[49;26H[?12l[?25h[?12;25h[?25lCommand attempted to use minibuffer while in minibuffer[?12l[?25h[?12;25h[?25l[38;5;20mCompile command: [39;49mmake -k[K[C[?12l[?25h[?12;25h[?25lC-c RET is undefined[K[?12l[?25h[?12;25h[K[25d[49d[?25l(No files need saving)[25;1H[?12l[?25h[?12;25h[H[?25l-*- mode: compilation; default-directory: "~/Projects/PawneMe/" -*-[K
+Compilation started at Tue Oct  4 14:59:22[K
+[K
+make -k[K
+[K
+[K
+[K
+[K
+[K
+[K[24;14H[1m[38;5;236m[47mcompilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:run Compiling)[0m[39;49m[48;51H[30m[48;5;250m Compiling)[39;49m[25;1H[?12l[?25h[?12;25h[5d[?25l[38;5;21mmake[39;49m: *** No targets specified and no makefile found.  Stop.
+
+Compilation [1m[91mexited abnormally[0m[39;49m with code [1m[91m2[0m[39;49m at Tue Oct  4 14:59:22[24;7H[38;5;236m[47m*-F1  [0m[39;49m[1m[38;5;236m[47m*compilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:exit [2])-----[0m[39;49m[48;51H[30m[48;5;250m)----------[39;49m[25;1H[?12l[?25h[?12;25h[49d[K[25d[49d[?25lC-c RET is undefined[25;1H[?12l[?25h[?12;25h[49d[K[25d[49d[?25l[38;5;20mCompile command: [39;49mmake -k[C[?12l[?25h[?12;25h[K[25d[49d[?25l(No files need saving)[25;1H[?12l[?25h[?12;25h[2;42H[?25l3
+
+
+[K
+
+[K[24;7H[38;5;236m[47m%-F1  [0m[39;49m[1m[38;5;236m[47m*compilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:run Compiling)[0m[39;49m[48;51H[30m[48;5;250m Compiling)[39;49m[25;1H[?12l[?25h[?12;25h[5d[?25l[38;5;21mmake[39;49m: *** No targets specified and no makefile found.  Stop.
+
+Compilation [1m[91mexited abnormally[0m[39;49m with code [1m[91m2[0m[39;49m at Tue Oct  4 14:59:23[24;7H[38;5;236m[47m*-F1  [0m[39;49m[1m[38;5;236m[47m*compilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:exit [2])-----[0m[39;49m[48;51H[30m[48;5;250m)----------[39;49m[25;1H[?12l[?25h[?12;25h[49d[K[25d[49d[?25lC-c RET is undefined[25;1H[?12l[?25h[?12;25h[49d[K[25d[49d[?25l[38;5;20mCompile command: [39;49mmake -k[?12l[?25h[?12;25h[K[25d[49d[?25l(No files need saving)[25;1H[?12l[?25h[?12;25h[5d[K
+
+[K[24;7H[?25l[38;5;236m[47m%-F1  [0m[39;49m[1m[38;5;236m[47m*compilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:run Compiling)[0m[39;49m[48;51H[30m[48;5;250m Compiling)[39;49m[25;1H[?12l[?25h[?12;25h[5d[?25l[38;5;21mmake[39;49m: *** No targets specified and no makefile found.  Stop.
+
+Compilation [1m[91mexited abnormally[0m[39;49m with code [1m[91m2[0m[39;49m at Tue Oct  4 14:59:23[24;7H[38;5;236m[47m*-F1  [0m[39;49m[1m[38;5;236m[47m*compilation*[0m[39;49m[38;5;236m[47m   All L1     (Compilation:exit [2])-----[0m[39;49m[48;51H[30m[48;5;250m)----------[39;49m[25;1H[?12l[?25h[?12;25h[49d[K[?1l>[?12l[?25h[?1049l[39;49m
