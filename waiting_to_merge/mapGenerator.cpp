@@ -12,26 +12,19 @@ mapGenerator::mapGenerator(std::string const &pathMap, std::string const &pathKe
 mapGenerator::~mapGenerator() {}
 
 
-std::string       mapGenerator::getFromFile()
+std::string       mapGenerator::getFromFile(std::string const fileName)
 {
   std::string     line = "";
   std::string     res = "";
-  int             a = 0;
-  int             b = 0;
-
-  std::ifstream infile(this->_pathMap);
-  while (std::getline(infile, line))
+  std::ifstream   file(fileName);
+ 
+  if (file.fail())
     {
-      std::istringstream iss(line);
-      if (!(iss >> a >> b)) 
-	{ 
-	  break ;
-	  /**
-	   * \Throw exception
-	   *
-	   */
-	}
-      std::cout << line << std::endl;
+      // throw exeption
+      std::cerr << "Fail open " << fileName << std::endl;
+    }
+  while (std::getline(file, line))
+    {
       res = res + line;
     }
   std::cout << "res : {" << res << "}" << std::endl;
@@ -40,14 +33,16 @@ std::string       mapGenerator::getFromFile()
 
 std::string       mapGenerator::decrypt()
 {
-  this->getFromFile();
+  this->_cMap = this->getFromFile(this->_pathMap);
+  this->_cKey = this->getFromFile(this->_pathKey);
+  this->_cIV = this->getFromFile(this->_pathIV);
   return ("LOL");
 }
 
 
 int              main(int ac, char **av)
 {
-  mapGenerator   *test = new mapGenerator(av[1], "w", "e");
+  mapGenerator   *test = new mapGenerator(av[1], av[2], av[3]);
   
   test->decrypt();
   return (1);

@@ -14,7 +14,7 @@ private:
   std::string         _cKey;
   std::string         _cIV;
 
-  std::string    getFromFile();
+  std::string    getFromFile(std::string const fileName);
 
 public:
   mapGenerator(std::string const &pathMap, std::string const &pathKey, std::string const &pathIV);
